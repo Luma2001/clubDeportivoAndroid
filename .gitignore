@@ -1,0 +1,89 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+
+# Compiled files
+*.apk
+*.ap_
+*.dex
+*.class
+*.o
+*.so
+
+# =========================
+# Android / Gradle / Studio
+# =========================
+
+# Gradle
+.gradle/
+build/
+*/build/
+
+# Local configuration (NO subir nunca)
+local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+
+# Keystore (claves de firma)
+*.jks
+*.keystore
+*.pem
+
+# Android Studio
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Logs y temporales
+*.log
+*.tmp
+*.temp
+
+# Capturas y pruebas
+captures/
+output.json
+
+# NDK
+obj/
+
+# IntelliJ
+.idea/modules.xml
+.idea/workspace.xml
+.idea/caches/
+.idea/libraries/
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+
+# OS
+.DS_Store
+Thumbs.db
+
+
+
+# Gradle Wrapper (se recomienda incluir los .jar, pero NO el directorio cache)
+!gradle/wrapper/gradle-wrapper.jar
+

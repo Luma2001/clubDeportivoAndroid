@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    tools:context=".MenuActivity"
+    android:background="@color/bdApp">
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/avatar"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bienvenido!!!!"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="al Menú Principal"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:textSize="20dp"
+        />
+
+
+    <Button
+        android:id="@+id/btnRegistrarPersona"
+        app:backgroundTint="@null"
+        android:layout_width="310dp"
+        android:layout_height="60dp"
+        android:background="@drawable/naranja"
+        android:text="@string/textRegistrarPersona"
+        android:textSize="24dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="54dp"
+        />
+
+    <Button
+        android:id="@+id/btnListaDeudores"
+        app:backgroundTint="@null"
+        android:layout_width="310dp"
+        android:layout_height="60dp"
+        android:background="@drawable/rojo"
+        android:text="@string/textListaDeudores"
+        android:textSize="24dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="54dp"
+        />
+
+    <Button
+        android:id="@+id/btnEmitirCarnet"
+        app:backgroundTint="@null"
+        android:layout_width="310dp"
+        android:layout_height="60dp"
+        android:background="@drawable/verde"
+        android:text="@string/textEmitirCarnet"
+        android:textSize="24dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="54dp"
+        />
+
+    <Button
+        android:id="@+id/btnCobrar"
+        app:backgroundTint="@null"
+        android:layout_width="310dp"
+        android:layout_height="60dp"
+        android:background="@drawable/celeste"
+        android:text="@string/textCobrar"
+        android:textSize="24dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="54dp"
+        />
+
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="261dp"
+        android:layout_height="41dp"
+        android:text="@string/textCerrarSesion"
+        android:textSize="16dp"
+        android:backgroundTint="@color/bluedark"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"/>
+
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="160dp"
+        app:srcCompat="@drawable/logo_grupo" />
+
+</LinearLayout>

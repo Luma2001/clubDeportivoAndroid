@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="@color/bgLogin"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="50dp"
+        >
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            app:srcCompat="@drawable/logo2"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+
+
+    <EditText
+        android:id="@+id/editTextUsuario"
+        android:layout_width="261dp"
+        android:layout_height="41dp"
+        android:inputType="textPersonName"
+        android:hint="@string/textUsuario"
+        android:layout_gravity="center"
+        android:background="@drawable/borde_radius"
+        android:layout_marginBottom="42dp"
+        android:paddingStart="100dp"
+       />
+
+
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="267dp"
+        android:layout_height="41dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_gravity="center"
+        android:hint="@string/textPassword"
+        android:background="@drawable/borde_radius"
+        android:paddingStart="100dp"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginBottom="72dp"
+        android:text="@string/textOlvideContrasena"
+
+        />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="261dp"
+        android:layout_height="41dp"
+        android:text="@string/textIniciarSesion"
+        android:layout_gravity="center"
+        android:layout_marginBottom="41dp"
+        android:backgroundTint="@color/bluedark"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="51dp"
+        android:text="@string/textCrearCuenta"
+
+        />
+
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/logo_grupo"
+        android:layout_gravity="center"/>
+
+
+
+</LinearLayout>

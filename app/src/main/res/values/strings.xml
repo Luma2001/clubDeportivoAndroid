@@ -1,0 +1,57 @@
+<resources>
+    <!--Main-->
+    <string name="app_name">ClubDeportivoPrueba</string>
+    <string name="textUsuario">Usuario</string>
+    <string name="textPassword">Contraseña</string>
+    <string name="textOlvideContrasena">Olvidé mi contraseña</string>
+    <string name="textIniciarSesion">INICIAR SESIÓN</string>
+    <string name="textCrearCuenta">Crea una cuenta</string>
+
+    <!--Menu-->
+    <string name="textRegistrarPersona">REGISTRAR PERSONA</string>
+    <string name="textListaDeudores">LISTA DEUDORES</string>
+    <string name="textEmitirCarnet">EMITIR CARNET</string>
+    <string name="textCobrar">COBRAR</string>
+    <string name="textCerrarSesion">CERRAR SESIÓN</string>
+    <string name="textBienvenido">Bienvenido</string>
+
+    <!--Registrar-->
+    <string name="TituloRegistrar">Registrar Persona</string>
+    <string name="labelNombre">Nombre</string>
+    <string name="labelApellido">Apellido</string>
+    <string name="labelDNI">DNI</string>
+    <string name="labelDireccion">Dirección</string>
+    <string name="textNombre">Nombre requerido...</string>
+    <string name="textApellido">Apellido requerido...</string>
+    <string name="textDNI">DNI requerido</string>
+    <string name="textDireccion">Dirección requerido...</string>
+    <string name="textSocio">Socio</string>
+    <string name="textAptoFisico">Apto Físico</string>
+    <string name="textRegistrar">Registrar</string>
+
+    <!--Emitir Carnet y Cobrar paso 1-->
+    <string name="TituloEmitir">Emitir Carnet</string>
+    <string name="textVerificarDNI">Ingrese el Nro de DNI</string>
+    <string name="textVerificar">Verificar</string>
+    <string name="subtDatosPersonales">Datos personales</string>
+    <string name="datoNombre">NOMBRE:</string>
+    <string name="datoApellido">APELLIDO:</string>
+    <string name="datoDNI">DNI:</string>
+    <string name="textEmitir">Emitir</string>
+
+    <!--Cobrar paso 2-->
+    <string name="labelMonto">Monto</string>
+    <string name="textMonto">Monto a cobrar</string>
+    <string name="subTitFPago">Forma de Pago</string>
+    <string name="labelEfectivo">Pago en Efectivo</string>
+    <string name="labelTarjeta">Pago con Tarjeta</string>
+    <string name="labelcuota1">1 cuota</string>
+    <string name="labelcuota3">3 cuotas</string>
+    <string name="labelcuota6">6 cuotas</string>
+
+    <string name="textSiguiente">Siguiente</string>
+
+    <string name="TituloLista">Lista de Deudores</string>
+
+    <string name="TituloCobrar">Cobrar</string>
+</resources>
