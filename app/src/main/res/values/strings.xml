@@ -64,5 +64,8 @@
     <string name="hintUsuario">Usuario</string>
     <string name="hintPass">Contraseña</string>
     <string name="hintRepeatPass">Repetir contraseña</string>
+    <string name="cuentaCreada">Cuenta creada</string>
+    <string name="cuentaCreadaDescripcion">Tu cuenta ha sido creada exitosamente. Ya puedes iniciar sesión.</string>
+    <string name="irAinicio">Ir a inicio</string>
 
 </resources>

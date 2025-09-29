@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/material_dynamic_neutral90"
     android:orientation="vertical"
     tools:context=".CrearCuentaActivity">
 
@@ -16,7 +16,7 @@
         android:layout_margin="10dp"
         android:background="@null"
         android:contentDescription="@string/botonVolver"
-        android:padding="10dp"
+        android:padding="15dp"
         android:src="@drawable/ic_chevron_left" />
 
     <LinearLayout
@@ -44,7 +44,7 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="41dp"
+            android:layout_height="48dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/borde_radius"
             android:hint="@string/hintDNI"
@@ -52,23 +52,16 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="41dp"
+            android:layout_height="48dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/borde_radius"
             android:hint="@string/hintEmail"
             android:paddingHorizontal="10dp" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="41dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/borde_radius"
-            android:hint="@string/hintEmail"
-            android:paddingHorizontal="10dp" />
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="41dp"
+            android:layout_height="48dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/borde_radius"
             android:hint="@string/hintUsuario"
@@ -76,7 +69,7 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="41dp"
+            android:layout_height="48dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/borde_radius"
             android:hint="@string/hintPass"
@@ -84,13 +77,14 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="41dp"
+            android:layout_height="48dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/borde_radius"
             android:hint="@string/hintRepeatPass"
             android:paddingHorizontal="10dp" />
 
         <Button
+            android:id="@+id/btnCrearCuenta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
