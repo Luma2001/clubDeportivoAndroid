@@ -54,4 +54,15 @@
     <string name="TituloLista">Lista de Deudores</string>
 
     <string name="TituloCobrar">Cobrar</string>
+
+    <!--    Crear cuenta-->
+    <string name="crearCuenta">Crear Cuenta</string>
+    <string name="botonVolver">Botón volver</string>
+    <string name="crearCuentaDescripcion">Complete el formulario para crear una cuenta como empleado</string>
+    <string name="hintDNI">Nro. de DNI</string>
+    <string name="hintEmail">Correo electrónico</string>
+    <string name="hintUsuario">Usuario</string>
+    <string name="hintPass">Contraseña</string>
+    <string name="hintRepeatPass">Repetir contraseña</string>
+
 </resources>

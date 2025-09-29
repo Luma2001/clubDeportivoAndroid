@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ClubDeportivoPrueba">
         <activity
+            android:name=".CrearCuentaActivity"
+            android:exported="false" />
+        <activity
             android:name=".CobrarActivity2"
             android:exported="false" />
         <activity
