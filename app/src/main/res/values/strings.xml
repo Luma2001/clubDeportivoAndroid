@@ -68,4 +68,10 @@
     <string name="cuentaCreadaDescripcion">Tu cuenta ha sido creada exitosamente. Ya puedes iniciar sesión.</string>
     <string name="irAinicio">Ir a inicio</string>
 
+    <!--    Recuperar contraseña-->
+    <string name="recuperarPass">Recuperar contraseña</string>"
+    <string name="recuperarPassDescripcion">Ingrese su DNI para recuperar la contraseña</string>
+    <string name="correoEnviado">Correo enviado</string>
+    <string name="correoEnviadoDescripcion">Se ha enviado un email a su correo electrónico con las instrucciones para recuperar la contraseña</string>
+
 </resources>
