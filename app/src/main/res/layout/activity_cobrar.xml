@@ -9,7 +9,15 @@
     android:layout_gravity="center"
     tools:context=".CobrarActivity"
     android:background="@color/bdApp">
-
+    <ImageButton
+        android:id="@+id/btnVolver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@null"
+        android:contentDescription="@string/botonVolver"
+        android:padding="15dp"
+        android:src="@drawable/ic_chevron_left" />
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="76dp"
@@ -36,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity=""
-        android:paddingStart="70dp"
+        android:paddingStart="50dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
         android:text="@string/labelDNI"
@@ -63,7 +71,7 @@
         android:text="@string/textVerificar"
         android:textSize="24dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="31dp"
         />
 
 
@@ -131,7 +139,7 @@
         android:text="@string/textSiguiente"
         android:textSize="24dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="31dp"
         />
 
     <!--LogoGrupo-->
