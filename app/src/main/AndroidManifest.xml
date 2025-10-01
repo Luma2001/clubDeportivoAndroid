@@ -11,6 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ClubDeportivoPrueba">
         <activity
+            android:name=".ComprobanteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CarnetEmitidoActivity"
+            android:exported="false" />
+        <activity
             android:name=".ConfirmacionPassActivity"
             android:exported="false" />
         <activity

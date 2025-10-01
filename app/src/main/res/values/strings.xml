@@ -70,11 +70,11 @@
     <string name="correoEnviado">Correo enviado</string>
     <string name="correoEnviadoDescripcion">Se ha enviado un email a su correo electrónico con las instrucciones para recuperar la contraseña</string>
 
-<!--    Lista deudores-->
+    <!--    Lista deudores-->
     <string name="TituloLista">Lista de Deudores</string>
     <string name="TituloCobrar">Cobrar</string>
     <string name="filtrarApellido">Filtrar por apellido</string>
-    
+
     <string name="card1DNI">DNI: 123456789</string>
     <string name="card1Apellido">Apellido: Rodríguez</string>
     <string name="card1Nombre">Nombre: Gastón</string>
@@ -92,5 +92,15 @@
     <string name="card3Nombre">Nombre: Analía</string>
     <string name="card3Monto">Monto: $ 43.350,00</string>
     <string name="card3Vencimiento">Vencimiento: 12/09/2025</string>
+
+    <!-- Carnet emitido -->
+    <string name="carnetEmitido">Carnet emitido</string>
+    <string name="crearPDF">Crear PDF</string>
+    <string name="enviarPorEmail">Enviar por email</string>
+    <string name="enviarPorWhatsApp">Enviar por WhatsApp</string>
+    <string name="carnetDescription">Carnet de socio</string>
+
+    <!-- Comprobante pago -->
+    <string name="comprobanteGenerado">Comprobante generado</string>
 
 </resources>

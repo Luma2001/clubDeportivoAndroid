@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/material_dynamic_neutral90"
+    android:orientation="vertical"
+    tools:context=".CrearCuentaActivity">
+
+
+    <ImageButton
+        android:id="@+id/btnVolver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@null"
+        android:contentDescription="@string/botonVolver"
+        android:padding="15dp"
+        android:src="@drawable/ic_chevron_left" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comprobanteGenerado"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/carnetDescription"
+            android:src="@drawable/comprobante_pago" />
+
+
+        <Button
+            android:id="@+id/btnCrearPDF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:backgroundTint="@color/bgLogin"
+            android:text="@string/crearPDF"
+            android:textAllCaps="true" />
+
+        <Button
+            android:id="@+id/btnEnviarPorEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/bgLogin"
+            android:text="@string/enviarPorEmail"
+            android:textAllCaps="true" />
+
+        <Button
+            android:id="@+id/btnEnviarPorWhatsapp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/bgLogin"
+            android:text="@string/enviarPorWhatsApp"
+            android:textAllCaps="true" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
