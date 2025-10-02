@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ClubDeportivoPrueba">
         <activity
+            android:name=".CobrarActivity3"
+            android:exported="false" />
+        <activity
             android:name=".ComprobanteActivity"
             android:exported="false" />
         <activity
