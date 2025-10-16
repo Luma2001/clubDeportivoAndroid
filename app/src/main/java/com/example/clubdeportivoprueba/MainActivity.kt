@@ -3,6 +3,8 @@ package com.example.clubdeportivoprueba
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -19,11 +21,25 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        val etUsuario = findViewById<EditText>(R.id.editTextUsuario)
+        val etPassword = findViewById<EditText>(R.id.editTextPassword)
 
         val btnLogin = findViewById<Button>(R.id.btnLogin)
+
         btnLogin.setOnClickListener {
-            val intent = Intent(this, MenuActivity::class.java)
-            startActivity(intent)
+            val user = etUsuario.text.toString()
+            val pass = etPassword.text.toString()
+
+            if(user.isEmpty() || pass.isEmpty()){
+                Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_LONG).show()
+            }else if(user=="admin" && pass=="123456"){
+                val intent = Intent(this, MenuActivity::class.java)
+                intent.putExtra("user",user)
+                startActivity(intent)
+            }else{
+                Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_LONG).show()
+            }
+
         }
 
         val btnCrearCuenta = findViewById<Button>(R.id.btnCrearCuenta)

@@ -37,6 +37,7 @@
         android:layout_height="41dp"
         android:inputType="textPersonName"
         android:hint="@string/textUsuario"
+        android:textColorHint="#88000000"
         android:layout_gravity="center"
         android:background="@drawable/borde_radius"
         android:layout_marginBottom="42dp"
@@ -53,6 +54,7 @@
         android:inputType="textPassword"
         android:layout_gravity="center"
         android:hint="@string/textPassword"
+        android:textColorHint="#88000000"
         android:background="@drawable/borde_radius"
         android:paddingStart="100dp"
         />

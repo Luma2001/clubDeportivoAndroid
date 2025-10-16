@@ -1,8 +1,10 @@
 package com.example.clubdeportivoprueba
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -18,6 +20,10 @@ class MenuActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val tvBienvenida = findViewById<TextView>(R.id.tvBienvenida)
+        val usuario = intent.getStringExtra("user") ?: "Usuario"
+        tvBienvenida.text = "Bienvenido/a $usuario"
 
         val btnRegistrarPersona = findViewById<Button>(R.id.btnRegistrarPersona)
         btnRegistrarPersona.setOnClickListener{
@@ -45,8 +51,15 @@ class MenuActivity : AppCompatActivity() {
 
         val btnCerrarSesion = findViewById<Button>(R.id.btnLogout)
         btnCerrarSesion.setOnClickListener{
-            val intentCS = Intent(this, MainActivity::class.java)
-            startActivity(intentCS)
+            AlertDialog.Builder(this)
+                .setTitle("Cerrar sesión")
+                .setMessage("¿Desea cerrar sesión?")
+                .setPositiveButton("Sí"){_,_->finish()}
+                .setNegativeButton("No", null)
+                .show()
+
+            /*val intentCS = Intent(this, MainActivity::class.java)
+            startActivity(intentCS)*/
         }
     }
 }
