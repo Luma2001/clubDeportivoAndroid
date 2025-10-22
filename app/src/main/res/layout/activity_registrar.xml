@@ -1,197 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
+    android:background="@color/bdApp"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_gravity="center"
-    tools:context=".RegistrarActivity"
-    android:background="@color/bdApp">
+    android:orientation="vertical">
 
-    <!--Btn Volver-->
-
-    <ImageButton
-        android:id="@+id/btnVolver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@null"
-        android:contentDescription="@string/botonVolver"
-
-        android:src="@drawable/ic_chevron_left" />
-
-
-
-    <!--logo-->
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="76dp"
-        android:layout_height="76dp"
-        app:srcCompat="@drawable/logo2"
-        android:layout_gravity="center"/>
-
-    <!--Titulo principal-->
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="@string/TituloRegistrar"
-        android:textSize="32dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
-
-    <!-- Input Nombre -->
-    <TextView
-        android:id="@+id/textViewNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity=""
-        android:paddingStart="70dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/labelNombre"
-        android:textSize="18dp"
-        android:textColor="@color/black"/>
-    <EditText
-        android:id="@+id/editTextNombre"
-        android:layout_width="261dp"
-        android:layout_height="51dp"
-        android:inputType="textPersonName"
-        android:hint="@string/textNombre"
-        android:layout_gravity="center"
-        android:background="@drawable/borde_radius"
-        android:layout_marginBottom="15dp"
-        android:paddingStart="10dp" />
-
-    <!-- Input Apellido -->
-    <TextView
-        android:id="@+id/textViewApellido"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity=""
-        android:paddingStart="70dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/labelApellido"
-        android:textSize="18dp"
-        android:textColor="@color/black"/>
-    <EditText
-        android:id="@+id/editTextApellido"
-        android:layout_width="261dp"
-        android:layout_height="51dp"
-        android:inputType="textPersonName"
-        android:hint="@string/textApellido"
-        android:layout_gravity="center"
-        android:background="@drawable/borde_radius"
-        android:layout_marginBottom="15dp"
-        android:paddingStart="10dp" />
-
-    <!-- Input DNI -->
-    <TextView
-        android:id="@+id/textViewDNI"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity=""
-        android:paddingStart="70dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/labelDNI"
-        android:textSize="18dp"
-        android:textColor="@color/black"/>
-    <EditText
-        android:id="@+id/editTextDNI"
-        android:layout_width="261dp"
-        android:layout_height="51dp"
-        android:inputType="textPersonName"
-        android:hint="@string/textDNI"
-        android:layout_gravity="center"
-        android:background="@drawable/borde_radius"
-        android:layout_marginBottom="15dp"
-        android:paddingStart="10dp" />
-
-    <!-- Input Dirección -->
-    <TextView
-        android:id="@+id/textViewDireccion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity=""
-        android:paddingStart="70dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/labelDireccion"
-        android:textSize="18dp"
-        android:textColor="@color/black"/>
-    <EditText
-        android:id="@+id/editTextDireccion"
-        android:layout_width="261dp"
-        android:layout_height="51dp"
-        android:inputType="textPersonName"
-        android:hint="@string/textDireccion"
-        android:layout_gravity="center"
-        android:background="@drawable/borde_radius"
-        android:layout_marginBottom="15dp"
-        android:paddingStart="10dp" />
-
-    <!--Grupo de botones tipo radio -->
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:padding="10dp"
-        android:layout_marginBottom="10dp">
+        android:orientation="vertical"
+        tools:context=".RegistrarActivity">
 
+        <!--Btn Volver-->
 
-        <RadioGroup
-            android:id="@+id/radioGroup"
+        <ImageButton
+            android:id="@+id/btnVolver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@null"
+            android:contentDescription="@string/botonVolver"
+
+            android:src="@drawable/ic_chevron_left" />
+
+
+        <!--logo-->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="76dp"
+            android:layout_height="76dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/logo2" />
+
+        <!--Titulo principal-->
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="@string/TituloRegistrar"
+            android:textColor="@color/black"
+            android:textSize="32dp"
+            android:textStyle="bold" />
+
+        <!-- Input Nombre -->
+        <TextView
+            android:id="@+id/textViewNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity=""
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingStart="70dp"
+            android:text="@string/labelNombre"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/editTextNombre"
+            android:layout_width="261dp"
+            android:layout_height="51dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/borde_radius"
+            android:hint="@string/textNombre"
+            android:inputType="textPersonName"
+            android:paddingStart="10dp" />
+
+        <!-- Input Apellido -->
+        <TextView
+            android:id="@+id/textViewApellido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity=""
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingStart="70dp"
+            android:text="@string/labelApellido"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/editTextApellido"
+            android:layout_width="261dp"
+            android:layout_height="51dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/borde_radius"
+            android:hint="@string/textApellido"
+            android:inputType="textPersonName"
+            android:paddingStart="10dp" />
+
+        <!-- Input DNI -->
+        <TextView
+            android:id="@+id/textViewDNI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity=""
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingStart="70dp"
+            android:text="@string/labelDNI"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/editTextDNI"
+            android:layout_width="261dp"
+            android:layout_height="51dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/borde_radius"
+            android:hint="@string/textDNI"
+            android:inputType="textPersonName"
+            android:paddingStart="10dp" />
+
+        <!-- Input Dirección -->
+        <TextView
+            android:id="@+id/textViewDireccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity=""
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingStart="70dp"
+            android:text="@string/labelDireccion"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/editTextDireccion"
+            android:layout_width="261dp"
+            android:layout_height="51dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/borde_radius"
+            android:hint="@string/textDireccion"
+            android:inputType="textPersonName"
+            android:paddingStart="10dp" />
+
+        <!--Grupo de botones tipo radio -->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
-            >
+            android:padding="10dp">
 
-            <RadioButton
-                android:id="@+id/radioOpcion1"
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/textSocio"
-                android:layout_marginRight="60dp"/>
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/radioOpcion2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/textAptoFisico" />
+                <RadioButton
+                    android:id="@+id/radioOpcion1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="60dp"
+                    android:text="@string/textSocio" />
+
+                <RadioButton
+                    android:id="@+id/radioOpcion2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/textAptoFisico" />
 
 
-        </RadioGroup>
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <!--Btn Registrar-->
+        <Button
+            android:id="@+id/buttonRegistrar"
+            android:layout_width="261dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="21dp"
+            android:background="@drawable/naranja"
+            android:text="@string/textRegistrar"
+            android:textSize="24dp"
+            app:backgroundTint="@null" />
+
+        <!--LogoGrupo-->
+        <ImageView
+            android:id="@+id/imageLogo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="160dp"
+            app:srcCompat="@drawable/logo_grupo" />
+
 
     </LinearLayout>
-
-    <!--Btn Registrar-->
-    <Button
-        android:id="@+id/buttonRegistrar"
-        app:backgroundTint="@null"
-        android:layout_width="261dp"
-        android:layout_height="60dp"
-        android:text="@string/textRegistrar"
-        android:background="@drawable/naranja"
-        android:layout_gravity="center"
-        android:textSize="24dp"
-        android:layout_marginBottom="21dp"/>
-
-    <!--LogoGrupo-->
-    <ImageView
-        android:id="@+id/imageLogo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="160dp"
-        app:srcCompat="@drawable/logo_grupo" />
-
-
-</LinearLayout>
+</ScrollView>

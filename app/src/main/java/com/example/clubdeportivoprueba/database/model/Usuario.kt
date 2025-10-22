@@ -6,7 +6,7 @@ data class Usuario(
     val email: String,
     val username: String,
     val pass: String,
-    val rol: String
+    val rol: String // el rol podrá ser uno de estos tres: "admin", "empleado", "socio" (o cliente)
 )
 
 
