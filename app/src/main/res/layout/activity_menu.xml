@@ -16,25 +16,26 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_gravity="center"
+        android:contentDescription="@string/avatar"
         app:srcCompat="@drawable/avatar"/>
 
     <TextView
         android:id="@+id/tvBienvenida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bienvenido!!!!"
+        android:text="@string/bienvenido"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="5dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="al Menú Principal"
+        android:text="@string/al_men_principal"
         android:layout_gravity="center"
         android:layout_marginBottom="50dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         />
 
 
@@ -45,7 +46,7 @@
         android:layout_height="60dp"
         android:background="@drawable/naranja"
         android:text="@string/textRegistrarPersona"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:layout_gravity="center"
         android:layout_marginBottom="54dp"
         />
@@ -57,7 +58,7 @@
         android:layout_height="60dp"
         android:background="@drawable/rojo"
         android:text="@string/textListaDeudores"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:layout_gravity="center"
         android:layout_marginBottom="54dp"
         />
@@ -69,7 +70,7 @@
         android:layout_height="60dp"
         android:background="@drawable/verde"
         android:text="@string/textEmitirCarnet"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:layout_gravity="center"
         android:layout_marginBottom="54dp"
         />
@@ -81,7 +82,7 @@
         android:layout_height="60dp"
         android:background="@drawable/celeste"
         android:text="@string/textCobrar"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:layout_gravity="center"
         android:layout_marginBottom="54dp"
         />
@@ -90,9 +91,9 @@
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="261dp"
-        android:layout_height="41dp"
+        android:layout_height="51dp"
         android:text="@string/textCerrarSesion"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:backgroundTint="@color/bluedark"
         android:layout_gravity="center"
         android:layout_marginBottom="24dp"/>
@@ -103,6 +104,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginStart="160dp"
+        android:contentDescription="@string/logo_grupo"
         app:srcCompat="@drawable/logo_grupo" />
 
 </LinearLayout>

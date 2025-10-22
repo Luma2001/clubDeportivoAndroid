@@ -102,5 +102,9 @@
 
     <!-- Comprobante pago -->
     <string name="comprobanteGenerado">Comprobante generado</string>
+    <string name="logo_grupo">logo grupo</string>
+    <string name="al_men_principal">al Menú Principal</string>
+    <string name="bienvenido">Bienvenido!!!!</string>
+    <string name="avatar">avatar</string>
 
 </resources>
