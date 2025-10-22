@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:background="@color/bdApp"
     android:layout_height="match_parent"
+    android:background="@color/bdApp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -61,7 +61,7 @@
             android:textSize="18dp" />
 
         <EditText
-            android:id="@+id/editTextNombre"
+            android:id="@+id/etNombre"
             android:layout_width="261dp"
             android:layout_height="51dp"
             android:layout_gravity="center"
@@ -85,7 +85,7 @@
             android:textSize="18dp" />
 
         <EditText
-            android:id="@+id/editTextApellido"
+            android:id="@+id/etApellido"
             android:layout_width="261dp"
             android:layout_height="51dp"
             android:layout_gravity="center"
@@ -109,7 +109,7 @@
             android:textSize="18dp" />
 
         <EditText
-            android:id="@+id/editTextDNI"
+            android:id="@+id/etDNI"
             android:layout_width="261dp"
             android:layout_height="51dp"
             android:layout_gravity="center"
@@ -133,7 +133,7 @@
             android:textSize="18dp" />
 
         <EditText
-            android:id="@+id/editTextDireccion"
+            android:id="@+id/etDireccion"
             android:layout_width="261dp"
             android:layout_height="51dp"
             android:layout_gravity="center"
@@ -153,27 +153,18 @@
             android:padding="10dp">
 
 
-            <RadioGroup
-                android:id="@+id/radioGroup"
+            <CheckBox
+                android:id="@+id/cbSocio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginRight="60dp"
+                android:text="@string/textSocio" />
 
-                <RadioButton
-                    android:id="@+id/radioOpcion1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="60dp"
-                    android:text="@string/textSocio" />
-
-                <RadioButton
-                    android:id="@+id/radioOpcion2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/textAptoFisico" />
-
-
-            </RadioGroup>
+            <CheckBox
+                android:id="@+id/cbAptoFisico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/textAptoFisico" />
 
         </LinearLayout>
 
