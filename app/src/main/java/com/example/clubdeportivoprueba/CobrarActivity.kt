@@ -60,7 +60,10 @@ class CobrarActivity : AppCompatActivity() {
         btnVerificar.setOnClickListener {
             val dni = etDNI.text.toString().trim()
 
-            if (dni.isEmpty()) return@setOnClickListener
+            if (dni.isEmpty()) {
+                cleanFields()
+                return@setOnClickListener
+            }
 
             // buscar persona por dni
             val person = personaDao.getPersonByDNI(dni)
@@ -79,13 +82,19 @@ class CobrarActivity : AppCompatActivity() {
 
         btnSiguiente.setOnClickListener {
             // verificar que esté cargado el dni antes de continuar
-            val dniText = tvDNI.text.toString().trim()
+            val tvDNIvalue = tvDNI.text.toString().trim()
+            val dniNumber = tvDNIvalue.replace("DNI:", "").trim()
 
-            if (dniText != "DNI:") {
+            if (dniNumber != "") {
                 val intent = Intent(this, CobrarActivity2::class.java)
-                // enviar el DNI a la siguiente pantalla
-                intent.putExtra("dni", dniText)
+                // enviar los datos a la siguiente pantalla
+                val tvTipoValue = tvTipo.text.toString().trim()
+                val tipo = tvTipoValue.replace("TIPO:", "").trim()
+
+                intent.putExtra("esSocio", if (tipo == "Socio") true else false)
+                intent.putExtra("dni", dniNumber)
                 startActivity(intent)
+                cleanFields()
             } else {
                 Toast.makeText(this, "Verifique el DNI antes de continuar", Toast.LENGTH_SHORT)
                     .show()

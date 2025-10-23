@@ -1,168 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_gravity="center"
-    tools:context=".CobrarActivity2"
     android:background="@color/bdApp">
 
-<!--Btn volver-->
-    <ImageButton
-        android:id="@+id/btnVolver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@null"
-        android:contentDescription="@string/botonVolver"
-        android:padding="15dp"
-        android:src="@drawable/ic_chevron_left" />
 
-<!--logo-->
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="76dp"
-        android:layout_height="76dp"
-        app:srcCompat="@drawable/logo2"
-        android:layout_gravity="center"/>
-<!--Titulo-->
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="@string/TituloCobrar"
-        android:textSize="32dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
-
-<!-- Input Monto a cobrar -->
-    <TextView
-        android:id="@+id/textViewMonto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity=""
-        android:paddingStart="50dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/labelMonto"
-        android:textSize="18dp"
-        android:textColor="@color/black"/>
-    <EditText
-        android:id="@+id/editTextVerMonto"
-        android:layout_width="310dp"
-        android:layout_height="51dp"
-        android:inputType="textPersonName"
-        android:hint="@string/textMonto"
-        android:layout_gravity="center"
-        android:background="@drawable/borde_radius"
-        android:layout_marginBottom="41dp"
-        android:paddingStart="10dp" />
-
-<!--subtitulo-->
-    <TextView
-        android:id="@+id/textViewSubtDatosCobrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/subTitFPago"
-        android:textSize="24dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
-
-
-
-    <!--Grupo de botones tipo radio -->
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="center"
-        android:padding="10dp"
-        android:layout_marginBottom="20dp">
+        tools:context=".CobrarActivity2">
 
-    <RadioGroup
-        android:id="@+id/radioFP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <RadioButton
-            android:id="@+id/radioOpcionEfectivo"
+        <!--Btn volver-->
+        <ImageButton
+            android:id="@+id/btnVolver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/labelEfectivo"
-            android:textSize="18dp"
-            android:textColor="@color/black"/>
+            android:layout_margin="10dp"
+            android:background="@null"
+            android:contentDescription="@string/botonVolver"
+            android:padding="15dp"
+            android:src="@drawable/ic_chevron_left" />
 
-    </RadioGroup>
+        <!--logo-->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="76dp"
+            android:layout_height="76dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/clubLogo"
+            app:srcCompat="@drawable/logo2" />
 
+        <!--Titulo-->
         <TextView
-            android:id="@+id/textOpciontarjeta"
+            android:id="@+id/tvCobrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:paddingStart="30dp"
-            android:text="@string/labelTarjeta"
-            android:textSize="18dp"
-            android:textColor="@color/black"/>
+            android:text="@string/TituloCobrar"
+            android:textColor="@color/black"
+            android:textSize="32sp"
+            android:textStyle="bold" />
 
-        <RadioGroup
-            android:id="@+id/radioCantCuotas"
+        <!-- Input Monto a cobrar -->
+        <TextView
+            android:id="@+id/textViewMonto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingStart="70dp">
+            android:layout_gravity=""
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/labelMonto"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/etMonto"
+            android:layout_width="310dp"
+            android:layout_height="51dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="41dp"
+            android:autofillHints="monto"
+            android:background="@drawable/borde_radius"
+            android:hint="@string/textMonto"
+            android:inputType="textPersonName"
+            android:paddingHorizontal="10dp" />
+
+        <!--subtitulo-->
+        <TextView
+            android:id="@+id/textViewSubtDatosCobrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/subTitFPago"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+        <!--Grupo de botones tipo radio -->
+        <RadioGroup
+            android:id="@+id/rgFPago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="60dp"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical">
 
             <RadioButton
-                android:id="@+id/radioOpcion1"
+                android:id="@+id/rbEfectivo"
+                android:checked="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/labelEfectivo"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/textOpciontarjeta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/labelTarjeta"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+
+            <RadioButton
+                android:id="@+id/rbUnaCuota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
                 android:text="@string/labelcuota1"
-                android:layout_marginRight="60dp"/>
+                android:textSize="18sp" />
 
             <RadioButton
-                android:id="@+id/radioOpcion2"
+                android:id="@+id/rbDosCuotas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/labelcuota3" />
+                android:layout_marginHorizontal="40dp"
+                android:text="@string/labelcuota3"
+                android:textSize="18sp" />
+
             <RadioButton
-                android:id="@+id/radioOpcion3"
+                android:id="@+id/rbTresCuotas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/labelcuota6" />
+                android:layout_marginHorizontal="40dp"
+                android:text="@string/labelcuota6"
+                android:textSize="18sp" />
 
         </RadioGroup>
 
+        <Button
+            android:id="@+id/btnCobrar"
+            android:layout_width="310dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="41dp"
+            android:background="@drawable/celeste"
+            android:text="@string/TituloCobrar"
+            android:textSize="24sp"
+            app:backgroundTint="@null" />
+
+        <!--LogoGrupo-->
+        <ImageView
+            android:contentDescription="@string/blpLogo"
+            android:id="@+id/imageLogo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="160dp"
+            app:srcCompat="@drawable/logo_grupo" />
+
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btnCobrar"
-        app:backgroundTint="@null"
-        android:layout_width="310dp"
-        android:layout_height="60dp"
-        android:background="@drawable/celeste"
-        android:text="@string/TituloCobrar"
-        android:textSize="24dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="41dp"
-        />
-
-    <!--LogoGrupo-->
-    <ImageView
-        android:id="@+id/imageLogo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="160dp"
-        app:srcCompat="@drawable/logo_grupo" />
-
-</LinearLayout>
+</ScrollView>
