@@ -112,12 +112,12 @@ class Database(context: Context) :
     }
 
     private fun insertDefaultParametros(db: SQLiteDatabase) {
-        val cv = ContentValues().apply {
+        val cuotaMensual = ContentValues().apply {
             put("clave", "cuota_mensual")
             put("valor", "60000.0")
             put("descripcion", "Cuota mensual para socios")
         }
-        db.insert("Parametro", null, cv)
+        db.insert("Parametro", null, cuotaMensual)
     }
 
     private fun insertDefaultActividades(db: SQLiteDatabase) {

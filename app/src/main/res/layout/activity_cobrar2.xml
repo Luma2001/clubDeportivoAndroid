@@ -46,6 +46,37 @@
             android:textSize="32sp"
             android:textStyle="bold" />
 
+        <!-- Grupo del Spinner de Actividades (para mostrar/ocultar) -->
+        <LinearLayout
+            android:id="@+id/llActividades"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible">  <!-- visibility="gone" por defecto -->
+
+            <TextView
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginTop="15dp"
+                android:text="Seleccione una Actividad"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/spnActividad"
+                android:layout_width="310dp"
+                android:layout_height="51dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/borde_radius"
+                android:paddingHorizontal="10dp"/>
+
+        </LinearLayout>
+
         <!-- Input Monto a cobrar -->
         <TextView
             android:id="@+id/textViewMonto"
@@ -67,6 +98,7 @@
             android:layout_marginBottom="41dp"
             android:autofillHints="monto"
             android:background="@drawable/borde_radius"
+            android:textColor="@color/black"
             android:hint="@string/textMonto"
             android:inputType="textPersonName"
             android:paddingHorizontal="10dp" />
