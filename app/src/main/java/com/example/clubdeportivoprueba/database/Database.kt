@@ -6,17 +6,20 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 const val DATABASE_NAME = "Database"
-const val DATABASE_VERSION = 3
+const val DATABASE_VERSION = 4
 
 class Database(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     override fun onCreate(db: SQLiteDatabase?) {
-        // crear todas las tablas
+        // esto activa las foreign key porque SQLite no las activa por defecto
+        db?.execSQL("PRAGMA foreign_keys = ON")
 
+        // crear todas las tablas
         db?.execSQL(CREATE_TABLE_USUARIO)
         db?.execSQL(CREATE_TABLE_PERSONA)
         db?.execSQL(CREATE_TABLE_PARAMETRO)
         db?.execSQL(CREATE_TABLE_ACTIVIDAD)
+        db?.execSQL(CREATE_TABLE_PAGO)
 
         // insertar valores por defecto
         if (db != null) {
@@ -37,6 +40,7 @@ class Database(context: Context) :
         db?.execSQL("DROP TABLE IF EXISTS Persona")
         db?.execSQL("DROP TABLE IF EXISTS Parametro")
         db?.execSQL("DROP TABLE IF EXISTS Actividad")
+        db?.execSQL("DROP TABLE IF EXISTS Pago")
         onCreate(db)
     }
 
@@ -80,6 +84,20 @@ class Database(context: Context) :
                 precio REAL NOT NULL
             )
         """
+
+        private const val CREATE_TABLE_PAGO = """
+            CREATE TABLE Pago(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id_persona INTEGER NOT NULL,
+                tipo TEXT NOT NULL,             -- 'cuota mensual' o 'actividad'
+                monto REAL NOT NULL,
+                fecha_pago TEXT NOT NULL,       -- formato ISO: '2025-10-23'
+                periodo TEXT,                   -- ej '2025-10' (solo para cuotas)
+                id_actividad INTEGER,           -- solo para actividades
+                FOREIGN KEY(id_persona) REFERENCES Persona(id) ON DELETE CASCADE,
+                FOREIGN KEY (id_actividad) REFERENCES Actividad(id) ON DELETE SET NULL
+            )
+        """
     }
 
     private fun insertDefaultAdmin(db: SQLiteDatabase) {
@@ -109,6 +127,7 @@ class Database(context: Context) :
             Pair("Gimnasio", 6000.0),
             Pair("Fútbol", 6000.0),
             Pair("Quincho", 12000.0),
+            Pair("Fogones", 3000.0),
         )
 
         actividades.forEach { (nombre, precio) ->
