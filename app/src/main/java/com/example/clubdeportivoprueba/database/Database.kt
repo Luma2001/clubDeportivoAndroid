@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 const val DATABASE_NAME = "Database"
-const val DATABASE_VERSION = 1
+const val DATABASE_VERSION = 2
 
 class Database(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -25,7 +25,10 @@ class Database(context: Context) :
         oldVersion: Int,
         newVersion: Int
     ) {
-        TODO("Not yet implemented")
+        // solo en desarrollo. en produccion no se deben eliminar las tablas
+        db?.execSQL("DROP TABLE IF EXISTS Usuario")
+        db?.execSQL("DROP TABLE IF EXISTS Persona")
+        onCreate(db)
     }
 
     // === Sentencias SQL como constantes ===
