@@ -53,7 +53,6 @@ class CobrarActivity : AppCompatActivity() {
         tvNombre = findViewById<TextView>(R.id.tvNombre)
         tvTipo = findViewById<TextView>(R.id.tvTipo)
 
-
         btnVolver.setOnClickListener {
             finish()
         }
@@ -68,11 +67,13 @@ class CobrarActivity : AppCompatActivity() {
 
             if (person == null) {
                 Toast.makeText(this, "No existe una persona con ese DNI", Toast.LENGTH_SHORT).show()
+                cleanFields()
             } else {
-                tvDNI.text = "DNI: ${person.dni}"
-                tvApellido.text = "APELLIDO: ${person.apellido}"
-                tvNombre.text = "NOMBRE: ${person.nombre}"
-                tvTipo.text = "TIPO: ${if (person.esSocio) "SOCIO" else "NO SOCIO"}"
+                tvDNI.text = getString(R.string.datoDNI).plus(" ${person.dni}")
+                tvApellido.text = getString(R.string.datoApellido).plus(" ${person.apellido}")
+                tvNombre.text = getString(R.string.datoNombre).plus(" ${person.nombre}")
+                tvTipo.text =
+                    getString(R.string.datoTipo).plus(" ${if (person.esSocio) "Socio" else "No Socio"}")
             }
         }
 
@@ -82,14 +83,21 @@ class CobrarActivity : AppCompatActivity() {
 
             if (dniText != "DNI:") {
                 val intent = Intent(this, CobrarActivity2::class.java)
+                // enviar el DNI a la siguiente pantalla
+                intent.putExtra("dni", dniText)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Verifique el DNI antes de continuar", Toast.LENGTH_SHORT)
                     .show()
             }
-
-
         }
+    }
 
+    private fun cleanFields() {
+        tvDNI.text = getString(R.string.datoDNI)
+        tvApellido.text = getString(R.string.datoApellido)
+        tvNombre.text = getString(R.string.datoNombre)
+        tvTipo.text = getString(R.string.datoTipo)
+        etDNI.text?.clear()
     }
 }
