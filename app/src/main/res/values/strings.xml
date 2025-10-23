@@ -6,6 +6,8 @@
     <string name="textOlvideContrasena">Olvidé mi contraseña</string>
     <string name="textIniciarSesion">INICIAR SESIÓN</string>
     <string name="textCrearCuenta">Crea una cuenta</string>
+    <string name="blpLogo">BLP Logo</string>
+    <string name="clubLogo">Club Deportivo Logo</string>
 
     <!--Menu-->
     <string name="textRegistrarPersona">REGISTRAR PERSONA</string>
@@ -37,6 +39,7 @@
     <string name="datoNombre">NOMBRE:</string>
     <string name="datoApellido">APELLIDO:</string>
     <string name="datoDNI">DNI:</string>
+    <string name="datoTipo">TIPO:</string>
     <string name="textEmitir">Emitir</string>
 
     <!--Cobrar paso 2-->
