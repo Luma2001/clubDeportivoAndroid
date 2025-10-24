@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.RadioButton
@@ -19,9 +18,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.clubdeportivoprueba.database.Database
 import com.example.clubdeportivoprueba.database.dao.ActividadDao
+import com.example.clubdeportivoprueba.database.dao.PagoDao
 import com.example.clubdeportivoprueba.database.dao.ParametroDao
 import com.example.clubdeportivoprueba.database.dao.PersonaDao
 import com.example.clubdeportivoprueba.database.model.Actividad
+import java.time.LocalDate
 
 class CobrarActivity2 : AppCompatActivity() {
 
@@ -30,19 +31,31 @@ class CobrarActivity2 : AppCompatActivity() {
     private lateinit var personaDao: PersonaDao
     private lateinit var actividadDao: ActividadDao
     private lateinit var parametroDao: ParametroDao
+    private lateinit var pagoDao: PagoDao
 
 
     // controles
     private lateinit var tvCobrar: TextView
     private lateinit var llActividades: LinearLayout
     private lateinit var spnActividad: Spinner
-    private lateinit var etMonto: EditText
     private lateinit var rbEfectivo: RadioButton
     private lateinit var rbUnaCuota: RadioButton
     private lateinit var rbDosCuotas: RadioButton
     private lateinit var rbTresCuotas: RadioButton
     private lateinit var btnCobrar: Button
     private lateinit var btnVolver: ImageButton
+
+    private lateinit var tvConceptoTitulo: TextView
+    private lateinit var tvConceptoValor: TextView
+    private lateinit var tvActividadLabel: TextView
+    private lateinit var tvActividadValor: TextView
+    private lateinit var tvMontoLabel: TextView
+    private lateinit var tvMontoValor: TextView
+    private lateinit var tvPeriodoLabel: TextView
+    private lateinit var tvPeriodoValor: TextView
+    private lateinit var tvEstadoMembresiaLabel: TextView
+    private lateinit var tvEstadoMembresiaValor: TextView
+    private var currentPersonaId: Long = -1
 
     // lista de actividades
     private var actividades: List<Actividad> = listOf()
@@ -63,12 +76,24 @@ class CobrarActivity2 : AppCompatActivity() {
         personaDao = PersonaDao(db)
         actividadDao = ActividadDao(db)
         parametroDao = ParametroDao(db)
+        pagoDao = PagoDao(db)
 
         // enlazar vistas
         tvCobrar = findViewById<TextView>(R.id.tvCobrar)
         llActividades = findViewById<LinearLayout>(R.id.llActividades)
         spnActividad = findViewById<Spinner>(R.id.spnActividad)
-        etMonto = findViewById<EditText>(R.id.etMonto)
+
+        tvConceptoTitulo = findViewById(R.id.tvConceptoTitulo)
+        tvConceptoValor = findViewById(R.id.tvConceptoValor)
+        tvActividadLabel = findViewById(R.id.tvActividadLabel)
+        tvActividadValor = findViewById(R.id.tvActividadValor)
+        tvMontoLabel = findViewById(R.id.tvMontoLabel)
+        tvMontoValor = findViewById(R.id.tvMontoValor)
+        tvPeriodoLabel = findViewById(R.id.tvPeriodoLabel)
+        tvPeriodoValor = findViewById(R.id.tvPeriodoValor)
+        tvEstadoMembresiaLabel = findViewById(R.id.tvEstadoMembresiaLabel)
+        tvEstadoMembresiaValor = findViewById(R.id.tvEstadoMembresiaValor)
+
         rbEfectivo = findViewById<RadioButton>(R.id.rbEfectivo)
         rbUnaCuota = findViewById<RadioButton>(R.id.rbUnaCuota)
         rbDosCuotas = findViewById<RadioButton>(R.id.rbDosCuotas)
@@ -88,6 +113,8 @@ class CobrarActivity2 : AppCompatActivity() {
             return
         }
 
+        currentPersonaId = persona.id
+
         val esSocio = persona.esSocio
 
         // configurar titulo
@@ -96,6 +123,7 @@ class CobrarActivity2 : AppCompatActivity() {
 
         // mostrar u ocultar actividades
         setupActivities(esSocio)
+        actualizarDetallePago(esSocio, currentPersonaId)
 
         // listener botones
         btnVolver.setOnClickListener {
@@ -114,12 +142,11 @@ class CobrarActivity2 : AppCompatActivity() {
             llActividades.visibility = View.GONE
             val cuotaSocio = parametroDao.getCuotaMensualSocio()
 
-            etMonto.isEnabled = false
-            etMonto.setText(cuotaSocio.toString())
+
         } else {
             // mostrar spiner y cargar actividades
             llActividades.visibility = View.VISIBLE
-            etMonto.isEnabled = false // el monto lo define la actividad
+
 
             actividades = actividadDao.getActivities()
 
@@ -143,16 +170,70 @@ class CobrarActivity2 : AppCompatActivity() {
                     id: Long
                 ) {
                     val actividadSeleccionada = actividades[position]
-                    etMonto.setText(actividadSeleccionada.precio.toString())
+                    actualizarDetallePago(esSocio = false, currentPersonaId)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
-                    etMonto.setText("")
+
                 }
             }
 
             // seleccionar el primero por defecto
             spnActividad.setSelection(0)
+        }
+    }
+
+    private fun actualizarDetallePago(esSocio: Boolean, personaId: Long) {
+        if (esSocio) {
+            // Socio: Pago de cuota mensual
+            val cuota = parametroDao.getCuotaMensualSocio()
+            val hoy = LocalDate.now().toString()
+
+            // Obtener última membresía activa (si existe)
+            val ultimaMembresia = pagoDao.getUltimaMembresiaActiva(personaId, hoy)
+
+            // Calcular período
+            val fechaInicio = hoy
+            val fechaFin = LocalDate.parse(hoy).plusDays(30).toString()
+
+            // Mostrar datos
+            tvConceptoValor.text = "Cuota Mensual"
+            tvMontoValor.text = String.format("%.0f", cuota)
+            tvPeriodoLabel.visibility = View.VISIBLE
+            tvPeriodoValor.visibility = View.VISIBLE
+            tvPeriodoValor.text = "$fechaInicio al $fechaFin"
+
+            // Estado de membresía
+            if (ultimaMembresia != null) {
+                tvEstadoMembresiaLabel.visibility = View.VISIBLE
+                tvEstadoMembresiaValor.visibility = View.VISIBLE
+                tvEstadoMembresiaValor.text = "Vencida. Renovando desde $fechaInicio."
+            } else {
+                tvEstadoMembresiaLabel.visibility = View.VISIBLE
+                tvEstadoMembresiaValor.visibility = View.VISIBLE
+                tvEstadoMembresiaValor.text = "Nueva membresía."
+            }
+
+            // Ocultar actividad
+            tvActividadLabel.visibility = View.GONE
+            tvActividadValor.visibility = View.GONE
+
+        } else {
+            // No socio: Pago por actividad
+            val actividadSeleccionada = actividades[spnActividad.selectedItemPosition]
+            val monto = actividadSeleccionada.precio
+
+            tvConceptoValor.text = "Pago por Actividad"
+            tvActividadLabel.visibility = View.VISIBLE
+            tvActividadValor.visibility = View.VISIBLE
+            tvActividadValor.text = actividadSeleccionada.nombre
+            tvMontoValor.text = String.format("%.0f", monto)
+
+            // Ocultar período y estado
+            tvPeriodoLabel.visibility = View.GONE
+            tvPeriodoValor.visibility = View.GONE
+            tvEstadoMembresiaLabel.visibility = View.GONE
+            tvEstadoMembresiaValor.visibility = View.GONE
         }
     }
 }

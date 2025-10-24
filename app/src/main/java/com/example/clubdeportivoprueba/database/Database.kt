@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 const val DATABASE_NAME = "Database"
-const val DATABASE_VERSION = 4
+const val DATABASE_VERSION = 5
 
 class Database(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -92,7 +92,8 @@ class Database(context: Context) :
                 tipo TEXT NOT NULL,             -- 'cuota mensual' o 'actividad'
                 monto REAL NOT NULL,
                 fecha_pago TEXT NOT NULL,       -- formato ISO: '2025-10-23'
-                periodo TEXT,                   -- ej '2025-10' (solo para cuotas)
+                fecha_inicio TEXT,              -- para socios. inicio de memebresía
+                fecha_fin TEXT,                 -- para socios. fin de membresía
                 id_actividad INTEGER,           -- solo para actividades
                 FOREIGN KEY(id_persona) REFERENCES Persona(id) ON DELETE CASCADE,
                 FOREIGN KEY (id_actividad) REFERENCES Actividad(id) ON DELETE SET NULL

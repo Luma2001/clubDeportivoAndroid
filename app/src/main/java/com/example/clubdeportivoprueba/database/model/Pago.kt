@@ -6,6 +6,9 @@ data class Pago (
     val tipo: String,
     val monto: Float,
     val fecha_pago: String,
-    val periodo: String?,       // Nulable, porque solo aplica a cuotas
-    val id_actividad: Int?
+    val fecha_inicio: String?, // para marcar el inicio del mes de membresía
+    val fecha_fin: String?, // para marcar el fin del mes de membresía
+    val id_actividad: Int? // solo para no socios
+
+
 )

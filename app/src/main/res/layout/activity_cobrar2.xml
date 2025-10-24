@@ -51,8 +51,8 @@
             android:id="@+id/llActividades"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             android:visibility="gone"
             tools:visibility="visible">  <!-- visibility="gone" por defecto -->
 
@@ -73,35 +73,122 @@
                 android:layout_marginHorizontal="50dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/borde_radius"
-                android:paddingHorizontal="10dp"/>
+                android:paddingHorizontal="10dp" />
 
         </LinearLayout>
 
-        <!-- Input Monto a cobrar -->
-        <TextView
-            android:id="@+id/textViewMonto"
-            android:layout_width="wrap_content"
+        <!-- LinearLayout para mostrar el monto -->
+        <LinearLayout
+            android:id="@+id/llDetallePago"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity=""
             android:layout_marginHorizontal="50dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:text="@string/labelMonto"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:background="@color/bgCard"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-        <EditText
-            android:id="@+id/etMonto"
-            android:layout_width="310dp"
-            android:layout_height="51dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="41dp"
-            android:autofillHints="monto"
-            android:background="@drawable/borde_radius"
-            android:textColor="@color/black"
-            android:hint="@string/textMonto"
-            android:inputType="textPersonName"
-            android:paddingHorizontal="10dp" />
+            <TextView
+                android:id="@+id/tvConceptoTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Concepto:"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Concepto (valor real) -->
+            <TextView
+                android:id="@+id/tvConceptoValor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:text="conceptoValor" />
+
+            <!-- Actividad (solo para no socios) -->
+            <TextView
+                android:id="@+id/tvActividadLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Actividad:"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvActividadValor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:text="actividadValor" />
+
+            <!-- Monto -->
+            <TextView
+                android:id="@+id/tvMontoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monto:"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMontoValor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:text="montoValor" />
+
+            <!-- Período (solo para socios) -->
+            <TextView
+                android:id="@+id/tvPeriodoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Período:"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvPeriodoValor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:text="periodoValor" />
+
+            <!-- Estado de membresía (solo para socios) -->
+            <TextView
+                android:id="@+id/tvEstadoMembresiaLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estado de membresía:"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvEstadoMembresiaValor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:text="estadoMembresiaValor" />
+
+        </LinearLayout>
 
         <!--subtitulo-->
         <TextView
@@ -116,7 +203,6 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-
         <!--Grupo de botones tipo radio -->
         <RadioGroup
             android:id="@+id/rgFPago"
@@ -128,13 +214,12 @@
 
             <RadioButton
                 android:id="@+id/rbEfectivo"
-                android:checked="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:text="@string/labelEfectivo"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
-
 
             <TextView
                 android:id="@+id/textOpciontarjeta"
@@ -146,7 +231,6 @@
                 android:text="@string/labelTarjeta"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
-
 
             <RadioButton
                 android:id="@+id/rbUnaCuota"
@@ -187,12 +271,12 @@
 
         <!--LogoGrupo-->
         <ImageView
-            android:contentDescription="@string/blpLogo"
             android:id="@+id/imageLogo"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginStart="160dp"
+            android:contentDescription="@string/blpLogo"
             app:srcCompat="@drawable/logo_grupo" />
 
     </LinearLayout>
