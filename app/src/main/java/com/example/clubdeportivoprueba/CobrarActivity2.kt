@@ -19,6 +19,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.clubdeportivoprueba.database.Database
 import com.example.clubdeportivoprueba.database.dao.ActividadDao
+import com.example.clubdeportivoprueba.database.dao.ParametroDao
 import com.example.clubdeportivoprueba.database.dao.PersonaDao
 import com.example.clubdeportivoprueba.database.model.Actividad
 
@@ -28,6 +29,8 @@ class CobrarActivity2 : AppCompatActivity() {
     private lateinit var database: Database
     private lateinit var personaDao: PersonaDao
     private lateinit var actividadDao: ActividadDao
+    private lateinit var parametroDao: ParametroDao
+
 
     // controles
     private lateinit var tvCobrar: TextView
@@ -54,14 +57,12 @@ class CobrarActivity2 : AppCompatActivity() {
             insets
         }
 
-        val dni = intent.getStringExtra("dni")
-        val esSocio =
-            intent.getBooleanExtra("esSocio", false) // bolean para saber si es socio o no socio
-
         // inicializar base de datos y DAOs
         database = Database(this)
-        personaDao = PersonaDao(database.readableDatabase)
-        actividadDao = ActividadDao(database.readableDatabase)
+        val db = database.readableDatabase
+        personaDao = PersonaDao(db)
+        actividadDao = ActividadDao(db)
+        parametroDao = ParametroDao(db)
 
         // enlazar vistas
         tvCobrar = findViewById<TextView>(R.id.tvCobrar)
@@ -75,10 +76,25 @@ class CobrarActivity2 : AppCompatActivity() {
         btnCobrar = findViewById<Button>(R.id.btnCobrar)
         btnVolver = findViewById<ImageButton>(R.id.btnVolver)
 
+        val dni = intent.getStringExtra("dni") ?: run {
+            Toast.makeText(this, "DNI no recibido", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+
+        val persona = personaDao.getPersonByDNI(dni) ?: run {
+            Toast.makeText(this, "Persona no encontrada", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+
+        val esSocio = persona.esSocio
+
         // configurar titulo
         tvCobrar.text =
             getString(R.string.TituloCobrar).plus(if (esSocio) " Socio" else " No socio")
 
+        // mostrar u ocultar actividades
         setupActivities(esSocio)
 
         // listener botones
@@ -90,13 +106,16 @@ class CobrarActivity2 : AppCompatActivity() {
             val intent = Intent(this, ComprobanteActivity::class.java)
             startActivity(intent)
         }
-
     }
 
     private fun setupActivities(esSocio: Boolean) {
         if (esSocio) {
             // ocultar spinner de actividades
             llActividades.visibility = View.GONE
+            val cuotaSocio = parametroDao.getCuotaMensualSocio()
+
+            etMonto.isEnabled = false
+            etMonto.setText(cuotaSocio.toString())
         } else {
             // mostrar spiner y cargar actividades
             llActividades.visibility = View.VISIBLE

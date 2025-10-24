@@ -85,13 +85,9 @@ class CobrarActivity : AppCompatActivity() {
             val tvDNIvalue = tvDNI.text.toString().trim()
             val dniNumber = tvDNIvalue.replace("DNI:", "").trim()
 
-            if (dniNumber != "") {
+            if (dniNumber.isNotEmpty()) {
                 val intent = Intent(this, CobrarActivity2::class.java)
-                // enviar los datos a la siguiente pantalla
-                val tvTipoValue = tvTipo.text.toString().trim()
-                val tipo = tvTipoValue.replace("TIPO:", "").trim()
 
-                intent.putExtra("esSocio", if (tipo == "Socio") true else false)
                 intent.putExtra("dni", dniNumber)
                 startActivity(intent)
                 cleanFields()
