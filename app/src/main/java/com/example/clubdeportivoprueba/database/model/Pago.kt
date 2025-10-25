@@ -1,8 +1,8 @@
 package com.example.clubdeportivoprueba.database.model
 
 data class Pago (
-    val id: Int,
-    val id_persona: Int,
+    val id: Long = 0,
+    val id_persona: Long,
     val tipo: String,
     val monto: Float,
     val fecha_pago: String,

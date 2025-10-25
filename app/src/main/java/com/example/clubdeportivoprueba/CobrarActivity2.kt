@@ -13,6 +13,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -40,8 +41,8 @@ class CobrarActivity2 : AppCompatActivity() {
     private lateinit var spnActividad: Spinner
     private lateinit var rbEfectivo: RadioButton
     private lateinit var rbUnaCuota: RadioButton
-    private lateinit var rbDosCuotas: RadioButton
     private lateinit var rbTresCuotas: RadioButton
+    private lateinit var rbSeisCuotas: RadioButton
     private lateinit var btnCobrar: Button
     private lateinit var btnVolver: ImageButton
 
@@ -56,6 +57,7 @@ class CobrarActivity2 : AppCompatActivity() {
     private lateinit var tvEstadoMembresiaLabel: TextView
     private lateinit var tvEstadoMembresiaValor: TextView
     private var currentPersonaId: Long = -1
+    private var montoBase: Float = 0f
 
     // lista de actividades
     private var actividades: List<Actividad> = listOf()
@@ -96,10 +98,12 @@ class CobrarActivity2 : AppCompatActivity() {
 
         rbEfectivo = findViewById<RadioButton>(R.id.rbEfectivo)
         rbUnaCuota = findViewById<RadioButton>(R.id.rbUnaCuota)
-        rbDosCuotas = findViewById<RadioButton>(R.id.rbDosCuotas)
         rbTresCuotas = findViewById<RadioButton>(R.id.rbTresCuotas)
+        rbSeisCuotas = findViewById<RadioButton>(R.id.rbSeisCuotas)
         btnCobrar = findViewById<Button>(R.id.btnCobrar)
         btnVolver = findViewById<ImageButton>(R.id.btnVolver)
+
+        setupMetodoPagoListener()
 
         val dni = intent.getStringExtra("dni") ?: run {
             Toast.makeText(this, "DNI no recibido", Toast.LENGTH_SHORT).show()
@@ -131,8 +135,7 @@ class CobrarActivity2 : AppCompatActivity() {
         }
 
         btnCobrar.setOnClickListener {
-            val intent = Intent(this, ComprobanteActivity::class.java)
-            startActivity(intent)
+            mostrarDialogoConfirmarPago(esSocio, montoBase)
         }
     }
 
@@ -218,6 +221,8 @@ class CobrarActivity2 : AppCompatActivity() {
             tvActividadLabel.visibility = View.GONE
             tvActividadValor.visibility = View.GONE
 
+            montoBase = cuota
+
         } else {
             // No socio: Pago por actividad
             val actividadSeleccionada = actividades[spnActividad.selectedItemPosition]
@@ -234,6 +239,104 @@ class CobrarActivity2 : AppCompatActivity() {
             tvPeriodoValor.visibility = View.GONE
             tvEstadoMembresiaLabel.visibility = View.GONE
             tvEstadoMembresiaValor.visibility = View.GONE
+
+            montoBase = actividadSeleccionada.precio
         }
+    }
+
+    private fun calcularMontoFinal(montoBase: Float): Float {
+        return when {
+            rbUnaCuota.isChecked || rbEfectivo.isChecked -> montoBase
+            rbTresCuotas.isChecked -> montoBase * 0.9f // 10% de descuento
+            rbSeisCuotas.isChecked -> montoBase * 0.8f // 20% de descuento
+            else -> montoBase
+        }
+    }
+
+    private fun setupMetodoPagoListener() {
+        val listener = View.OnClickListener {
+            actualizarMontoConDescuento()
+        }
+        rbEfectivo.setOnClickListener(listener)
+        rbUnaCuota.setOnClickListener(listener)
+        rbTresCuotas.setOnClickListener(listener)
+        rbSeisCuotas.setOnClickListener(listener)
+    }
+
+    private fun actualizarMontoConDescuento() {
+        val montoFinal = calcularMontoFinal(montoBase)
+        tvMontoValor.text = String.format("%.0f", montoFinal)
+    }
+
+    private fun mostrarDialogoConfirmarPago(esSocio: Boolean, montoBase: Float) {
+        val montoFinal = calcularMontoFinal(montoBase)
+
+        val concepto = if (esSocio) {
+            "Cuota mensual de Socio"
+        } else {
+            val actividad = actividades.getOrNull(spnActividad.selectedItemPosition)
+            "Actividad: ${actividad?.nombre ?: "N/A"}"
+        }
+
+        val metodoPago = when {
+            rbEfectivo.isChecked -> "Efectivo"
+            rbUnaCuota.isChecked -> "1 cuota"
+            rbTresCuotas.isChecked -> "3 cuotas (10% desc.)"
+            rbSeisCuotas.isChecked -> "6 cuotas (20% desc.)"
+            else -> "No especificado"
+        }
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirmar Pago")
+            .setMessage(
+                "¿Desea confirmar el siguiente pago?\n"
+                        + "\nConcepto: $concepto"
+                        + "\nMonto: $${String.format("%.0f", montoFinal)}"
+                        + "\nMétodo de pago: $metodoPago"
+            )
+            .setPositiveButton("Aceptar") { dialog, which ->
+                registrarPago(montoFinal, esSocio)
+            }
+            .setNegativeButton("Cancelar") { dialog, which ->
+                dialog.dismiss()
+            }
+            .setCancelable(false) // evitar que se cierre tocando fuera del dialog
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun registrarPago(montoFinal: Float, esSocio: Boolean) {
+        val pagoId: Long
+        if (esSocio) {
+            pagoId = pagoDao.insert(
+                currentPersonaId, "cuota_mensual", montoFinal, null
+            )
+        } else {
+            val actividad = actividades[spnActividad.selectedItemPosition]
+            pagoId = pagoDao.insert(
+                currentPersonaId, "actividad", montoFinal, actividad.id.toInt()
+            )
+        }
+
+        if (pagoId == -1L) {
+            Toast.makeText(this, "Error al registrar el pago", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Navegar al comprobante
+        val intent = Intent(this, ComprobanteActivity::class.java).apply {
+            putExtra("pagoId", pagoId)
+            putExtra("monto", montoFinal)
+            putExtra("esSocio", esSocio)
+            putExtra(
+                "actividad",
+                if (!esSocio) actividades[spnActividad.selectedItemPosition].nombre else null
+            )
+        }
+        startActivity(intent)
+
+        // finalizar esta actividad para que no quede en el stack
+        finish()
     }
 }

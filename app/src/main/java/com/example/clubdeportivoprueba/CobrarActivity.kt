@@ -91,6 +91,7 @@ class CobrarActivity : AppCompatActivity() {
                 intent.putExtra("dni", dniNumber)
                 startActivity(intent)
                 cleanFields()
+                finish()
             } else {
                 Toast.makeText(this, "Verifique el DNI antes de continuar", Toast.LENGTH_SHORT)
                     .show()

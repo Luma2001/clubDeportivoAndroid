@@ -89,7 +89,7 @@ class Database(context: Context) :
             CREATE TABLE Pago(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 id_persona INTEGER NOT NULL,
-                tipo TEXT NOT NULL,             -- 'cuota mensual' o 'actividad'
+                tipo TEXT NOT NULL,             -- 'cuota_mensual' o 'actividad'
                 monto REAL NOT NULL,
                 fecha_pago TEXT NOT NULL,       -- formato ISO: '2025-10-23'
                 fecha_inicio TEXT,              -- para socios. inicio de memebresía
