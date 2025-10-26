@@ -6,16 +6,18 @@ import com.example.clubdeportivoprueba.database.model.Pago
 import java.time.LocalDate
 
 class PagoDao(private val db: SQLiteDatabase) {
-    fun getUltimaMembresiaActiva(personaId: Long, hoy: String): Pago? {
+    fun getUltimaMembresia(personaId: Long): Pago? {
         val cursor = db.query(
             "Pago",
             null,
-            "id_persona = ? AND fecha_fin >= ? AND tipo = 'cuota_mensual'",
-            arrayOf(personaId.toString(), hoy),
+            "id_persona = ? AND tipo = 'cuota_mensual'",
+            arrayOf(personaId.toString()),
             null,
             null,
-            "fecha_fin DESC"
+            "fecha_fin DESC",
+            "1"
         )
+
         return if (cursor.moveToFirst()) {
             val pago = Pago(
                 id = cursor.getLong(cursor.getColumnIndexOrThrow("id")),
@@ -37,6 +39,34 @@ class PagoDao(private val db: SQLiteDatabase) {
         }
     }
 
+    fun puedePagarCuota(personaId: Long): Pair<Boolean, String> {
+        val ultimaMembresia = getUltimaMembresia(personaId)
+        val hoy = LocalDate.now()
+
+        // si no hay membresias previas puede pagar
+        if (ultimaMembresia == null) {
+            return Pair(true, "Sin membresías previas")
+        }
+
+        val fechaFinUltimaMembresia = LocalDate.parse(ultimaMembresia.fecha_fin)
+        val diasDesdeVencimiento = hoy.toEpochDay() - fechaFinUltimaMembresia.toEpochDay()
+
+        return when {
+            // Si está dentro del período activo (30 días)
+            hoy.isBefore(fechaFinUltimaMembresia) || hoy.isEqual(fechaFinUltimaMembresia) -> {
+                Pair(false, "Socio al día. Membresía activa hasta ${ultimaMembresia.fecha_fin}")
+            }
+            // Si está en período de gracia (primeros 10 días después del vencimiento)
+            diasDesdeVencimiento <= 10 -> {
+                Pair(true, "En período de gracia")
+            }
+            // Si pasaron más de 10 días desde el vencimiento
+            else -> {
+                Pair(true, "Nueva membresía requerida")
+            }
+        }
+    }
+
     fun insert(personId: Long, tipo: String, monto: Float, idActividad: Int?): Long {
         // validaciones
         if (personId.toString().isEmpty() || tipo.isEmpty() || monto.toString().isEmpty()) {
@@ -52,16 +82,36 @@ class PagoDao(private val db: SQLiteDatabase) {
         }
 
         val esCuotaMensual = tipo == "cuota_mensual"
-        val today = LocalDate.now().toString()
-        val endDate = LocalDate.now().plusDays(30).toString()
+        val today = LocalDate.now()
+
+        // calculo de fechas para cuotas de socios
+        var fechaInicio = today.toString()
+        var fechaFin = today.plusDays(30).toString()
+
+        if (esCuotaMensual) {
+            val ultimaMembresia = getUltimaMembresia(personId)
+            if (ultimaMembresia != null) {
+                val fechaFinUltima = LocalDate.parse(ultimaMembresia.fecha_fin)
+                val diasDesdeVencimiento = today.toEpochDay() - fechaFinUltima.toEpochDay()
+
+                // si paga dentro del periodo de gracia (10 días) continua desde donde terminó
+                if (diasDesdeVencimiento <= 10 && diasDesdeVencimiento > 0) {
+                    fechaInicio = fechaFinUltima.plusDays(1).toString()
+                    fechaFin = fechaFinUltima.plusDays(31)
+                        .toString() // 30 días desde la nueva fecha de inicio
+                }
+
+                // si está pagando antes del vencimiento no se permite ya que el socio está al día
+            }
+        }
 
         val values = ContentValues().apply {
             put("id_persona", personId)
             put("tipo", tipo)
             put("monto", monto)
-            put("fecha_pago", today)
-            put("fecha_inicio", if (esCuotaMensual) today else null)
-            put("fecha_fin", if (esCuotaMensual) endDate else null)
+            put("fecha_pago", today.toString())
+            put("fecha_inicio", if (esCuotaMensual) fechaInicio else null)
+            put("fecha_fin", if (esCuotaMensual) fechaFin else null)
             put("id_actividad", if (!esCuotaMensual) idActividad else null)
         }
         return db.insert("Pago", null, values)

@@ -58,6 +58,7 @@ class CobrarActivity2 : AppCompatActivity() {
     private lateinit var tvEstadoMembresiaValor: TextView
     private var currentPersonaId: Long = -1
     private var montoBase: Float = 0f
+    private var esSocio: Boolean = false
 
     // lista de actividades
     private var actividades: List<Actividad> = listOf()
@@ -118,8 +119,7 @@ class CobrarActivity2 : AppCompatActivity() {
         }
 
         currentPersonaId = persona.id
-
-        val esSocio = persona.esSocio
+        esSocio = persona.esSocio
 
         // configurar titulo
         tvCobrar.text =
@@ -135,6 +135,14 @@ class CobrarActivity2 : AppCompatActivity() {
         }
 
         btnCobrar.setOnClickListener {
+            // verificar si puede pagar la cuota
+            if (esSocio) {
+                val (puedePagar, mensaje) = pagoDao.puedePagarCuota(currentPersonaId)
+                if (!puedePagar) {
+                    Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+            }
             mostrarDialogoConfirmarPago(esSocio, montoBase)
         }
     }
@@ -143,13 +151,9 @@ class CobrarActivity2 : AppCompatActivity() {
         if (esSocio) {
             // ocultar spinner de actividades
             llActividades.visibility = View.GONE
-            val cuotaSocio = parametroDao.getCuotaMensualSocio()
-
-
         } else {
             // mostrar spiner y cargar actividades
             llActividades.visibility = View.VISIBLE
-
 
             actividades = actividadDao.getActivities()
 
@@ -190,14 +194,26 @@ class CobrarActivity2 : AppCompatActivity() {
         if (esSocio) {
             // Socio: Pago de cuota mensual
             val cuota = parametroDao.getCuotaMensualSocio()
-            val hoy = LocalDate.now().toString()
+            val hoy = LocalDate.now()
 
-            // Obtener última membresía activa (si existe)
-            val ultimaMembresia = pagoDao.getUltimaMembresiaActiva(personaId, hoy)
+            // verificar estado de membresia
+            val (puedePagar, mensaje) = pagoDao.puedePagarCuota(personaId)
+            val ultimaMembresia = pagoDao.getUltimaMembresia(personaId)
 
-            // Calcular período
-            val fechaInicio = hoy
-            val fechaFin = LocalDate.parse(hoy).plusDays(30).toString()
+            // Calcular fechas para la nueva membresía
+            var fechaInicio = hoy.toString()
+            var fechaFin = hoy.plusDays(30).toString()
+
+            if (ultimaMembresia != null) {
+                val fechaFinUltima = LocalDate.parse(ultimaMembresia.fecha_fin)
+                val diasDesdeVencimiento = hoy.toEpochDay() - fechaFinUltima.toEpochDay()
+
+                if (diasDesdeVencimiento <= 10 && diasDesdeVencimiento > 0) {
+                    // periodo de gracia. continua desde donde terminó
+                    fechaInicio = fechaFinUltima.plusDays(1).toString()
+                    fechaFin = fechaFinUltima.plusDays(31).toString()
+                }
+            }
 
             // Mostrar datos
             tvConceptoValor.text = "Cuota Mensual"
@@ -207,17 +223,33 @@ class CobrarActivity2 : AppCompatActivity() {
             tvPeriodoValor.text = "$fechaInicio al $fechaFin"
 
             // Estado de membresía
-            if (ultimaMembresia != null) {
-                tvEstadoMembresiaLabel.visibility = View.VISIBLE
-                tvEstadoMembresiaValor.visibility = View.VISIBLE
-                tvEstadoMembresiaValor.text = "Vencida. Renovando desde $fechaInicio."
-            } else {
-                tvEstadoMembresiaLabel.visibility = View.VISIBLE
-                tvEstadoMembresiaValor.visibility = View.VISIBLE
-                tvEstadoMembresiaValor.text = "Nueva membresía."
+            tvEstadoMembresiaLabel.visibility = View.VISIBLE
+            tvEstadoMembresiaValor.visibility = View.VISIBLE
+
+            when {
+                ultimaMembresia == null -> {
+                    tvEstadoMembresiaValor.text = "Nueva membresía"
+                    tvEstadoMembresiaValor.setTextColor(getColor(android.R.color.holo_green_dark))
+                }
+
+                !puedePagar -> {
+                    tvEstadoMembresiaValor.text =
+                        "AL DÍA - Membresía activa hasta ${ultimaMembresia.fecha_fin}"
+                    tvEstadoMembresiaValor.setTextColor(getColor(android.R.color.holo_green_dark))
+                }
+
+                hoy.isAfter(LocalDate.parse(ultimaMembresia.fecha_fin).plusDays(10)) -> {
+                    tvEstadoMembresiaValor.text = "VENCIDA. Nueva membresía requerida"
+                    tvEstadoMembresiaValor.setTextColor(getColor(android.R.color.holo_red_dark))
+                }
+
+                else -> {
+                    tvEstadoMembresiaValor.text = "PERIODO DE GRACIA - Renovación con continuidad"
+                    tvEstadoMembresiaValor.setTextColor(getColor(android.R.color.holo_orange_dark))
+                }
             }
 
-            // Ocultar actividad
+            // ocultar actividad
             tvActividadLabel.visibility = View.GONE
             tvActividadValor.visibility = View.GONE
 
@@ -335,8 +367,6 @@ class CobrarActivity2 : AppCompatActivity() {
             )
         }
         startActivity(intent)
-
-        // finalizar esta actividad para que no quede en el stack
         finish()
     }
 }
