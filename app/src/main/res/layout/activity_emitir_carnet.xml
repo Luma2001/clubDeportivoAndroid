@@ -5,10 +5,10 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_gravity="center"
-    tools:context=".EmitirCarnetActivity"
-    android:background="@color/bdApp">
+    android:background="@color/bdApp"
+    android:orientation="vertical"
+    tools:context=".EmitirCarnetActivity">
 
     <ImageButton
         android:id="@+id/btnVolver"
@@ -20,127 +20,207 @@
         android:padding="15dp"
         android:src="@drawable/ic_chevron_left" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="76dp"
-        android:layout_height="76dp"
-        app:srcCompat="@drawable/logo2"
-        android:layout_gravity="center"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="@string/TituloEmitir"
-        android:textSize="32dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
-
-    <!-- Input Verficar DNI -->
-    <TextView
-        android:id="@+id/textViewVerDNI"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity=""
-        android:paddingStart="50dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/labelDNI"
-        android:textSize="18dp"
-        android:textColor="@color/black"/>
-    <EditText
-        android:id="@+id/editTextVerDNI"
-        android:layout_width="310dp"
-        android:layout_height="51dp"
-        android:inputType="textPersonName"
-        android:hint="@string/textVerificarDNI"
-        android:layout_gravity="center"
-        android:background="@drawable/borde_radius"
-        android:layout_marginBottom="36dp"
-        android:paddingStart="10dp" />
-
-
-    <Button
-        android:id="@+id/btnVerificar"
-        app:backgroundTint="@null"
-        android:layout_width="310dp"
-        android:layout_height="60dp"
-        android:background="@drawable/verde"
-        android:text="@string/textVerificar"
-        android:textSize="24dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="31dp"
-        />
-
-
-    <TextView
-        android:id="@+id/textViewSubtDatos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/subtDatosPersonales"
-        android:textSize="24dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
-
-    <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="160dp"
-        android:background="@color/white"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:padding="20dp"
-        android:layout_marginBottom="40dp">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/datoDNI"
-            android:paddingStart="20dp"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginBottom="16dp"
-            />
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/datoApellido"
-            android:paddingStart="20dp"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginBottom="16dp"
-            />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="76dp"
+                android:layout_height="76dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/clubLogo"
+                app:srcCompat="@drawable/logo2" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/datoNombre"
-            android:paddingStart="20dp"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="@string/TituloEmitir"
+                android:textColor="@color/black"
+                android:textSize="32sp"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+            <!-- Input Verficar DNI -->
+            <TextView
+                android:id="@+id/textViewVerDNI"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity=""
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/labelDNI"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/btnEmitir"
-        app:backgroundTint="@null"
-        android:layout_width="310dp"
-        android:layout_height="60dp"
-        android:background="@drawable/verde"
-        android:text="@string/textEmitir"
-        android:textSize="24dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="31dp"
-        />
+            <EditText
+                android:id="@+id/etDNI"
+                android:layout_width="310dp"
+                android:layout_height="51dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="36dp"
+                android:autofillHints="dni"
+                android:background="@drawable/borde_radius"
+                android:hint="@string/textVerificarDNI"
+                android:inputType="textPersonName"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/black" />
+
+
+            <Button
+                android:id="@+id/btnVerificar"
+                android:layout_width="310dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="31dp"
+                android:background="@drawable/verde"
+                android:text="@string/textVerificar"
+                android:textSize="24sp"
+                app:backgroundTint="@null" />
+
+
+            <TextView
+                android:id="@+id/textViewSubtDatos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/subtDatosPersonales"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="40dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!--DNI -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/datoDNI"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvDNI"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        tools:text="12312312" />
+                </LinearLayout>
+
+                <!--Apellido -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/datoApellido"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvApellido"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        tools:text="González" />
+                </LinearLayout>
+
+                <!-- Nombre -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/datoNombre"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvNombre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        tools:text="Javier" />
+                </LinearLayout>
+
+                <!-- Tipo Socio / No socio -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/datoTipo"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvTipo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        tools:text="No socio" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnEmitir"
+                android:layout_width="310dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="31dp"
+                android:background="@drawable/verde"
+                android:text="@string/textEmitir"
+                android:textSize="24sp"
+                app:backgroundTint="@null" />
+        </LinearLayout>
+    </ScrollView>
 
     <!--LogoGrupo-->
     <ImageView
@@ -149,6 +229,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginStart="160dp"
+        android:contentDescription="@string/blpLogo"
         app:srcCompat="@drawable/logo_grupo" />
 
 
