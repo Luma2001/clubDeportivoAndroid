@@ -101,7 +101,8 @@
     <string name="crearPDF">Crear PDF</string>
     <string name="enviarPorEmail">Enviar por email</string>
     <string name="enviarPorWhatsApp">Enviar por WhatsApp</string>
-    <string name="carnetDescription">Carnet de socio</string>
+    <string name="compartirCarnet">COMPARTIR CARNET</string>
+    <string name="carnetDescription">Carnet de socio del club deportivo</string>
 
     <!-- Comprobante pago -->
     <string name="comprobanteGenerado">Comprobante generado</string>
@@ -110,5 +111,6 @@
     <string name="bienvenido">Bienvenido!!!!</string>
     <string name="avatar">avatar</string>
     <string name="compartirComprobante">COMPARTIR COMPROBANTE</string>
+
 
 </resources>

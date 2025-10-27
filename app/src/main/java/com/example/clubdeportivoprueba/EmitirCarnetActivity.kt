@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.clubdeportivoprueba.database.Database
+import com.example.clubdeportivoprueba.database.dao.PagoDao
 import com.example.clubdeportivoprueba.database.dao.PersonaDao
 
 class EmitirCarnetActivity : AppCompatActivity() {
@@ -19,6 +20,7 @@ class EmitirCarnetActivity : AppCompatActivity() {
     // database
     private lateinit var database: Database
     private lateinit var personaDao: PersonaDao
+    private lateinit var pagoDao: PagoDao
 
     // controles
     private lateinit var btnVolver: ImageButton
@@ -30,7 +32,11 @@ class EmitirCarnetActivity : AppCompatActivity() {
     private lateinit var tvApellido: TextView
     private lateinit var tvNombre: TextView
     private lateinit var tvTipo: TextView
+    private lateinit var tvEstadoMembresia: TextView
+
     private var esSocio: Boolean = false
+    private var puedeEmitirCarnet : Boolean = false
+    private var currentPersonaId: Long = -1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +58,12 @@ class EmitirCarnetActivity : AppCompatActivity() {
     fun emitCarnet() {
         if (!esSocio) {
             Toast.makeText(this, "El carnet es solo para socios", Toast.LENGTH_SHORT).show()
+            cleanFields()
+            return
+        }
+
+        if (!puedeEmitirCarnet) {
+            Toast.makeText(this, "No se puede emitir carnet. Estado de membresía no válido", Toast.LENGTH_LONG).show()
             cleanFields()
             return
         }
@@ -88,6 +100,7 @@ class EmitirCarnetActivity : AppCompatActivity() {
             return
         }
 
+        currentPersonaId = person.id
         esSocio = person.esSocio
 
         tvDNI.text = person.dni
@@ -99,6 +112,29 @@ class EmitirCarnetActivity : AppCompatActivity() {
                 android.R.color.holo_red_dark
             )
         )
+
+        // verificar estado de memebresia si es socio
+        if (esSocio) {
+            val (puedeEmitir, mensaje) = pagoDao.puedeEmitirCarnet(currentPersonaId)
+            this.puedeEmitirCarnet = puedeEmitir
+
+            tvEstadoMembresia.visibility = TextView.VISIBLE
+            tvEstadoMembresia.text = mensaje
+
+            when {
+                puedeEmitir -> {
+                    tvEstadoMembresia.setTextColor(getColor(android.R.color.holo_green_dark))
+//                    tvEstadoMembresia.setBackgroundColor(getColor(android.R.color.holo_green_light))
+                }
+                else -> {
+                    tvEstadoMembresia.setTextColor(getColor(android.R.color.holo_red_dark))
+//                    tvEstadoMembresia.setBackgroundColor(getColor(android.R.color.holo_red_light))
+                }
+            }
+        } else {
+            tvEstadoMembresia.visibility = TextView.GONE
+            this.puedeEmitirCarnet = false
+        }
     }
 
     private fun cleanFields() {
@@ -107,12 +143,17 @@ class EmitirCarnetActivity : AppCompatActivity() {
         tvApellido.text = ""
         tvNombre.text = ""
         tvTipo.text = ""
+        tvEstadoMembresia.visibility = TextView.GONE
+        esSocio = false
+        puedeEmitirCarnet = false
+        currentPersonaId = -1
     }
 
     fun initializeDatabase() {
         database = Database(this)
         val db = database.readableDatabase
         personaDao = PersonaDao(db)
+        pagoDao = PagoDao(db)
     }
 
     fun initializeViews() {
@@ -125,6 +166,7 @@ class EmitirCarnetActivity : AppCompatActivity() {
         tvApellido = findViewById<TextView>(R.id.tvApellido)
         tvNombre = findViewById<TextView>(R.id.tvNombre)
         tvTipo = findViewById<TextView>(R.id.tvTipo)
+        tvEstadoMembresia = findViewById<TextView>(R.id.tvEstadoMembresia)
     }
 
     fun setListeners() {

@@ -207,6 +207,16 @@
                         tools:text="No socio" />
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/tvEstadoMembresia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/bgCard"
+                    android:padding="8dp"
+                    android:text="Estado de membresía: No verificado"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <Button

@@ -39,6 +39,34 @@ class PagoDao(private val db: SQLiteDatabase) {
         }
     }
 
+    fun puedeEmitirCarnet(personaId: Long) : Pair<Boolean, String> {
+        val ultimaMembresia = getUltimaMembresia(personaId)
+        val hoy = LocalDate.now()
+
+        // si no tiene membresías previas no puede emitir carnet
+        if (ultimaMembresia == null) {
+            return Pair(false, "Es necesario abonar la primer cuota para emitir carnet")
+        }
+
+        val fechaFinUltimaMembresia = LocalDate.parse(ultimaMembresia.fecha_fin)
+        val diasDesdeVencimiento = hoy.toEpochDay() - fechaFinUltimaMembresia.toEpochDay()
+
+        return when {
+            // si está dentro del periodo activo (30 días) , puede emitir carnet
+            hoy.isBefore(fechaFinUltimaMembresia) || hoy.isEqual(fechaFinUltimaMembresia) -> {
+                Pair(true, "Membresía activa hasta ${ultimaMembresia.fecha_fin}")
+            }
+            // si está en periodo de gracia (primeros 10 días desde el vencimiento) no puede emitir carnet
+            diasDesdeVencimiento <= 10 -> {
+                Pair(false, "Periodo de gracia. Regularice antes de emitir carnet")
+            }
+            // si pasaron más de 10 días desde vencimiento no puede emitir
+            else -> {
+                Pair(false, "Membresía vencida. Es necesario abonar una cuota antes de emitir el carnet")
+            }
+        }
+    }
+
     fun puedePagarCuota(personaId: Long): Pair<Boolean, String> {
         val ultimaMembresia = getUltimaMembresia(personaId)
         val hoy = LocalDate.now()
