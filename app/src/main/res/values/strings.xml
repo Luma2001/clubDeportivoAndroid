@@ -74,9 +74,7 @@
     <string name="correoEnviadoDescripcion">Se ha enviado un email a su correo electrónico con las instrucciones para recuperar la contraseña</string>
 
     <!--    Lista deudores-->
-    <string name="TituloLista">Lista de Deudores</string>
     <string name="TituloCobrar">Cobrar</string>
-    <string name="filtrarApellido">Filtrar por apellido</string>
 
     <string name="card1DNI">DNI: 123456789</string>
     <string name="card1Apellido">Apellido: Rodríguez</string>
@@ -95,6 +93,8 @@
     <string name="card3Nombre">Nombre: Analía</string>
     <string name="card3Monto">Monto: $ 43.350,00</string>
     <string name="card3Vencimiento">Vencimiento: 12/09/2025</string>
+    <string name="TituloLista">SOCIOS CON CUOTA VENCIDA</string>
+    <string name="filtrarApellido">Filtrar por nombre, apellido o DNI...</string>
 
     <!-- Carnet emitido -->
     <string name="carnetEmitido">Carnet emitido</string>

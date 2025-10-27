@@ -3,6 +3,7 @@ package com.example.clubdeportivoprueba.database.dao
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import com.example.clubdeportivoprueba.database.model.Pago
+import com.example.clubdeportivoprueba.database.model.Persona
 import java.time.LocalDate
 
 class PagoDao(private val db: SQLiteDatabase) {
@@ -39,7 +40,7 @@ class PagoDao(private val db: SQLiteDatabase) {
         }
     }
 
-    fun puedeEmitirCarnet(personaId: Long) : Pair<Boolean, String> {
+    fun puedeEmitirCarnet(personaId: Long): Pair<Boolean, String> {
         val ultimaMembresia = getUltimaMembresia(personaId)
         val hoy = LocalDate.now()
 
@@ -62,7 +63,10 @@ class PagoDao(private val db: SQLiteDatabase) {
             }
             // si pasaron más de 10 días desde vencimiento no puede emitir
             else -> {
-                Pair(false, "Membresía vencida. Es necesario abonar una cuota antes de emitir el carnet")
+                Pair(
+                    false,
+                    "Membresía vencida. Es necesario abonar una cuota antes de emitir el carnet"
+                )
             }
         }
     }
@@ -174,5 +178,46 @@ class PagoDao(private val db: SQLiteDatabase) {
             cursor.close()
             null
         }
+    }
+
+    fun getSociosConMembresiaVencidaOEnGracia(): List<Pair<Persona, Pago?>> {
+        val hoy = LocalDate.now()
+        val sociosConProblemas = mutableListOf<Pair<Persona, Pago?>>()
+
+        // obtener todos los socios
+        val cursorSocios = db.query(
+            "Persona", null, "esSocio = 1", null, null, null, null
+        )
+
+        while (cursorSocios.moveToNext()) {
+            val persona = Persona(
+                id = cursorSocios.getLong(cursorSocios.getColumnIndexOrThrow("id")),
+                nombre = cursorSocios.getString(cursorSocios.getColumnIndexOrThrow("nombre")),
+                apellido = cursorSocios.getString(cursorSocios.getColumnIndexOrThrow("apellido")),
+                dni = cursorSocios.getString(cursorSocios.getColumnIndexOrThrow("dni")),
+                direccion = cursorSocios.getString(cursorSocios.getColumnIndexOrThrow("direccion")),
+                esSocio = cursorSocios.getInt(cursorSocios.getColumnIndexOrThrow("esSocio")) == 1
+            )
+
+            // obtener ultima meembresia para este socio
+            val ultimaMembresia = getUltimaMembresia(persona.id)
+
+            if (ultimaMembresia == null) {
+                // nunca pagó, se considera vencido
+                sociosConProblemas.add(Pair(persona, null))
+            } else {
+                val fechaFin = LocalDate.parse(ultimaMembresia.fecha_fin)
+                val diasDesdeVencimiento = hoy.toEpochDay() - fechaFin.toEpochDay()
+
+                // está vencida (más de 0 días) O en período de gracia (hasta 10 días)
+                if (diasDesdeVencimiento >= 0) {
+                    sociosConProblemas.add(Pair(persona, ultimaMembresia))
+                }
+                // NOTA: Si diasDesdeVencimiento < 0, significa que la membresía aún está activa
+            }
+        }
+
+        cursorSocios.close()
+        return sociosConProblemas
     }
 }
