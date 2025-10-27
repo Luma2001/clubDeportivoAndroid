@@ -116,4 +116,35 @@ class PagoDao(private val db: SQLiteDatabase) {
         }
         return db.insert("Pago", null, values)
     }
+
+    fun getPagoById(id: Long): Pago? {
+        val cursor = db.query(
+            "Pago",
+            null,
+            "id = ?",
+            arrayOf(id.toString()),
+            null,
+            null,
+            null,
+            null
+        )
+
+        return if (cursor.moveToFirst()) {
+            val pago = Pago(
+                id = cursor.getLong(cursor.getColumnIndexOrThrow("id")),
+                id_persona = cursor.getLong(cursor.getColumnIndexOrThrow("id_persona")),
+                tipo = cursor.getString(cursor.getColumnIndexOrThrow("tipo")),
+                monto = cursor.getFloat(cursor.getColumnIndexOrThrow("monto")),
+                fecha_pago = cursor.getString(cursor.getColumnIndexOrThrow("fecha_pago")),
+                fecha_inicio = cursor.getString(cursor.getColumnIndexOrThrow("fecha_inicio")),
+                fecha_fin = cursor.getString(cursor.getColumnIndexOrThrow("fecha_fin")),
+                id_actividad = cursor.getInt(cursor.getColumnIndexOrThrow("id_actividad"))
+            )
+            cursor.close()
+            pago
+        } else {
+            cursor.close()
+            null
+        }
+    }
 }

@@ -40,8 +40,32 @@ class PersonaDao(private val db: SQLiteDatabase) {
             val esSocio = cursor.getInt(cursor.getColumnIndexOrThrow("esSocio")) == 1
 
             cursor.close()
-
             Persona(id, nombre, apellido, fetchedDni, direccion, esSocio)
+        } else {
+            cursor.close()
+            null
+        }
+    }
+
+    fun getPersonById(id: Long): Persona? {
+        val cursor = db.query(
+            "Persona",
+            null,
+            "id = ?",
+            arrayOf(id.toString()),
+            null, null, null
+        )
+
+        return if (cursor.moveToFirst()) {
+            val id = cursor.getLong(cursor.getColumnIndexOrThrow("id"))
+            val nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre"))
+            val apellido = cursor.getString(cursor.getColumnIndexOrThrow("apellido"))
+            val dni = cursor.getString(cursor.getColumnIndexOrThrow("dni"))
+            val direccion = cursor.getString(cursor.getColumnIndexOrThrow("direccion"))
+            val esSocio = cursor.getInt(cursor.getColumnIndexOrThrow("esSocio")) == 1
+
+            cursor.close()
+            Persona(id, nombre, apellido, dni, direccion, esSocio)
         } else {
             cursor.close()
             null
