@@ -123,4 +123,13 @@ class UsuarioDao(private val db: SQLiteDatabase) {
             null
         }
     }
+
+    fun updatePasswordByDNI(dni: String, newPass: String): Boolean{
+        val values = ContentValues().apply {
+            put("pass", newPass)
+        }
+
+        val rowsAffected = db.update("Usuario", values, "dni = ?", arrayOf(dni))
+        return rowsAffected > 0
+    }
 }

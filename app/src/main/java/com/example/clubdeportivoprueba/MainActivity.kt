@@ -6,14 +6,18 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.clubdeportivoprueba.database.Database
+import com.example.clubdeportivoprueba.database.dao.EmpleadoDao
 import com.example.clubdeportivoprueba.database.dao.UsuarioDao
 
 class MainActivity : AppCompatActivity() {
     private lateinit var database: Database
+    private lateinit var usuarioDao: UsuarioDao
+    private lateinit var empleadoDao: EmpleadoDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +32,8 @@ class MainActivity : AppCompatActivity() {
         // Llamar a la base de datos para crearla si aún no existe
         database = Database(this)
         val db = database.writableDatabase
-        val usuarioDao = UsuarioDao(db)
+        empleadoDao = EmpleadoDao(db)
+        usuarioDao = UsuarioDao(db)
 
         val etUsuario = findViewById<EditText>(R.id.editTextUsuario)
         val etPassword = findViewById<EditText>(R.id.editTextPassword)
@@ -39,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             val password = etPassword.text.toString()
 
             if (username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_LONG)
+                Toast.makeText(this, "Complete todos los campos", Toast.LENGTH_LONG)
                     .show()
                 return@setOnClickListener
             }
@@ -71,10 +76,62 @@ class MainActivity : AppCompatActivity() {
 
         val btnRecuperarPass = findViewById<Button>(R.id.btnRecuperarPass)
         btnRecuperarPass.setOnClickListener {
-            val intent = Intent(this, RecuperarPassActivity::class.java)
-            startActivity(intent)
+            mostrarDialogoRecuperarPassword()
         }
 
 
+    }
+
+    private fun mostrarDialogoRecuperarPassword() {
+        val input = EditText(this).apply {
+            hint = "Ingrese su DNI"
+        }
+
+        AlertDialog.Builder(this)
+            .setTitle("Recuperar contraseña")
+            .setMessage("Ingrese su DNI para resetear su contraseña")
+            .setView(input)
+            .setPositiveButton("Aceptar") {dialog, which ->
+                val dni = input.text.toString().trim()
+                resetPassword(dni)
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun resetPassword(dni: String) {
+        if (dni.isEmpty()) {
+            Toast.makeText(this, "Ingrese un DNI", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // verificar que el empleado existe
+        val empleado = empleadoDao.getByDNI(dni)
+        if(empleado == null) {
+            Toast.makeText(this, "DNI no registrado como empleado", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // verificar que el empleado tiene cuenta de usuario
+        val usuario = usuarioDao.getByDNI(dni)
+        if (usuario == null) {
+            Toast.makeText(this, "No existe una cuenta para este empleado", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // resetear contraseña. poner DNI
+        val passwordReset = dni
+
+        val updated = usuarioDao.updatePasswordByDNI(dni, passwordReset)
+
+        if(updated) {
+            AlertDialog.Builder(this)
+                .setTitle("Contraseña reseteada")
+                .setMessage("La contraseña ha sido reseteada exitosamente.\n\n" + "Su nueva contraseña será su DNI")
+                .setPositiveButton("Aceptar", null)
+                .show()
+        } else {
+            Toast.makeText(this, "Error al resetear la contraseña", Toast.LENGTH_SHORT).show()
+        }
     }
 }
