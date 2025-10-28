@@ -10,4 +10,5 @@
     <color name="bgLogin">#116EFE</color>
     <color name="bdApp">#757575</color>
     <color name="bgCard">#C5DBED</color>
+    <color name="hintText">#757575</color>
 </resources>

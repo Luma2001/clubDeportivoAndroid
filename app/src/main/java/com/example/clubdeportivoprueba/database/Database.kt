@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 const val DATABASE_NAME = "Database"
-const val DATABASE_VERSION = 5
+const val DATABASE_VERSION = 6
 
 class Database(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -16,6 +16,7 @@ class Database(context: Context) :
 
         // crear todas las tablas
         db?.execSQL(CREATE_TABLE_USUARIO)
+        db?.execSQL(CREATE_TABLE_EMPLEADO)
         db?.execSQL(CREATE_TABLE_PERSONA)
         db?.execSQL(CREATE_TABLE_PARAMETRO)
         db?.execSQL(CREATE_TABLE_ACTIVIDAD)
@@ -24,6 +25,7 @@ class Database(context: Context) :
         // insertar valores por defecto
         if (db != null) {
             insertDefaultAdmin(db)
+            insertDefaultEmpleados(db)
             insertDefaultParametros(db)
             insertDefaultActividades(db)
         }
@@ -49,11 +51,23 @@ class Database(context: Context) :
         private const val CREATE_TABLE_USUARIO = """
             CREATE TABLE Usuario(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                dni VARCHAR(10),
+                dni VARCHAR(10) UNIQUE,
                 email VARCHAR(100),
                 username VARCHAR(30),
                 pass VARCHAR(100),
-                rol VARCHAR(10)
+                rol VARCHAR(10) DEFAULT 'empleado',
+                activo INTEGER DEFAULT 1,
+                FOREIGN KEY (dni) REFERENCES Empleado(dni) ON DELETE CASCADE
+            )
+        """
+
+        private const val CREATE_TABLE_EMPLEADO = """
+            CREATE TABLE Empleado(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nombre VARCHAR(100) NOT NULL,
+                apellido VARCHAR(100) NOT NULL,
+                dni VARCHAR(10) NOT NULL UNIQUE,
+                activo INTEGER DEFAULT 1 -- 1 activo , 0 = inactivo
             )
         """
 
@@ -110,6 +124,25 @@ class Database(context: Context) :
             put("rol", "admin")
         }
         db.insert("Usuario", null, adminValues)
+    }
+
+    private fun insertDefaultEmpleados(db: SQLiteDatabase) {
+        val empleados = listOf(
+            Triple("Juan", "Pérez", "12345678"),
+            Triple("Fabio", "Hubert", "01010101"),
+            Triple("María", "Gómez", "23456789"),
+            Triple("Carlos", "López", "34567890"),
+            Triple("Ana", "Rodríguez", "45678901")
+        )
+
+        empleados.forEach { (nombre, apellido, dni) ->
+            val values = ContentValues().apply {
+                put("nombre", nombre)
+                put("apellido", apellido)
+                put("dni", dni)
+            }
+            db.insert("Empleado", null, values)
+        }
     }
 
     private fun insertDefaultParametros(db: SQLiteDatabase) {

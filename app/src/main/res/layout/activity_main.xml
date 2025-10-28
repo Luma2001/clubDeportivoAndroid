@@ -79,7 +79,7 @@
         android:layout_height="41dp"
         android:text="@string/textIniciarSesion"
         android:layout_gravity="center"
-        android:layout_marginBottom="41dp"
+        android:textColor="@color/white"
         android:backgroundTint="@color/bluedark"/>
 
     <Button

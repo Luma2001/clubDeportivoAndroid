@@ -5,13 +5,13 @@ import android.database.sqlite.SQLiteDatabase
 import com.example.clubdeportivoprueba.database.model.Usuario
 
 class UsuarioDao(private val db: SQLiteDatabase) {
-    fun insert(usuario: Usuario): Long {
+    fun insert(dni: String, email: String, username: String, pass: String, rol: String): Long {
         val values = ContentValues().apply {
-            put("dni", usuario.dni)
-            put("email", usuario.email)
-            put("username", usuario.username)
-            put("pass", usuario.pass)
-            put("rol", usuario.rol)
+            put("dni", dni)
+            put("email", email)
+            put("username", username)
+            put("pass", pass)
+            put("rol", rol)
         }
         return db.insert("Usuario", null, values)
     }
@@ -58,6 +58,54 @@ class UsuarioDao(private val db: SQLiteDatabase) {
             null,
             "username = ? AND pass = ?",
             arrayOf(username, pass),
+            null, null, null
+        )
+
+        return if (cursor.moveToFirst()) {
+            val id = cursor.getLong(cursor.getColumnIndexOrThrow("id"))
+            val dni = cursor.getString(cursor.getColumnIndexOrThrow("dni"))
+            val email = cursor.getString(cursor.getColumnIndexOrThrow("email"))
+            val fetchedUsername = cursor.getString(cursor.getColumnIndexOrThrow("username"))
+            val fetchedPass = cursor.getString(cursor.getColumnIndexOrThrow("pass"))
+            val rol = cursor.getString(cursor.getColumnIndexOrThrow("rol"))
+            cursor.close()
+            Usuario(id, dni, email, fetchedUsername, fetchedPass, rol)
+        } else {
+            cursor.close()
+            null
+        }
+    }
+
+    fun getByDNI(dni: String): Usuario? {
+        val cursor = db.query(
+            "Usuario",
+            null,
+            "dni = ?",
+            arrayOf(dni),
+            null, null, null
+        )
+
+        return if (cursor.moveToFirst()) {
+            val id = cursor.getLong(cursor.getColumnIndexOrThrow("id"))
+            val fetchedDni = cursor.getString(cursor.getColumnIndexOrThrow("dni"))
+            val email = cursor.getString(cursor.getColumnIndexOrThrow("email"))
+            val username = cursor.getString(cursor.getColumnIndexOrThrow("username"))
+            val fetchedPass = cursor.getString(cursor.getColumnIndexOrThrow("pass"))
+            val rol = cursor.getString(cursor.getColumnIndexOrThrow("rol"))
+            cursor.close()
+            Usuario(id, fetchedDni, email, username, fetchedPass, rol)
+        } else {
+            cursor.close()
+            null
+        }
+    }
+
+    fun getByUsername(username: String): Usuario? {
+        val cursor = db.query(
+            "Usuario",
+            null,
+            "username = ?",
+            arrayOf(username),
             null, null, null
         )
 
