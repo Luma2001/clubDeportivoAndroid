@@ -3,4 +3,8 @@
     <item
         android:id="@+id/menu_cambiar_password"
         android:title="Cambiar contraseña" />
+
+    <item
+        android:id="@+id/menu_cerrar_sesion"
+        android:title="Cerrar sesión"/>
 </menu>

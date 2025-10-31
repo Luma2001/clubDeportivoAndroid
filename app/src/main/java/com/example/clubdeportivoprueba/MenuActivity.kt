@@ -55,6 +55,16 @@ class MenuActivity : AppCompatActivity() {
                         true
                     }
 
+                    R.id.menu_cerrar_sesion -> {
+                        AlertDialog.Builder(this)
+                            .setTitle("Cerrar sesión")
+                            .setMessage("¿Desea cerrar sesión?")
+                            .setPositiveButton("Sí") { _, _ -> finish() }
+                            .setNegativeButton("No", null)
+                            .show()
+                        true
+                    }
+
                     else -> false
                 }
             }
@@ -68,7 +78,6 @@ class MenuActivity : AppCompatActivity() {
         val btnCobrar = findViewById<Button>(R.id.btnCobrar)
         val btnEmitirCarnet = findViewById<Button>(R.id.btnEmitirCarnet)
         val btnListaDeudores = findViewById<Button>(R.id.btnListaDeudores)
-        val btnLogout = findViewById<Button>(R.id.btnLogout)
 
         btnRegistrarPersona.setOnClickListener {
             val intent = Intent(this, RegistrarActivity::class.java)
@@ -88,15 +97,6 @@ class MenuActivity : AppCompatActivity() {
         btnListaDeudores.setOnClickListener {
             val intent = Intent(this, ListaDeudoresActivity::class.java)
             startActivity(intent)
-        }
-
-        btnLogout.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setTitle("Cerrar sesión")
-                .setMessage("¿Desea cerrar sesión?")
-                .setPositiveButton("Sí") { _, _ -> finish() }
-                .setNegativeButton("No", null)
-                .show()
         }
     }
 }
