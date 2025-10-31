@@ -4,13 +4,19 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MenuActivity : AppCompatActivity() {
+    private var username: String = ""
+    private var rol: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -21,45 +27,76 @@ class MenuActivity : AppCompatActivity() {
             insets
         }
 
+        setMenuOptions()
+
+        username = intent.getStringExtra("user") ?: "Usuario"
+        rol = intent.getStringExtra("rol") ?: "empleado"
+
         val tvBienvenida = findViewById<TextView>(R.id.tvBienvenida)
-        val usuario = intent.getStringExtra("user") ?: "Usuario"
-        tvBienvenida.text = "Bienvenido/a $usuario"
+        tvBienvenida.text = "¡Bienvenido, $username!"
 
+
+        setButtons()
+    }
+
+    private fun setMenuOptions() {
+        val btnMenuOpciones = findViewById<ImageButton>(R.id.btnMenuOpciones)
+
+        btnMenuOpciones.setOnClickListener { view ->
+            val popupMenu = PopupMenu(this, view)
+            popupMenu.menuInflater.inflate(R.menu.menu_opciones, popupMenu.menu)
+
+            popupMenu.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.menu_cambiar_password -> {
+                        val intent = Intent(this, CambiarPasswordActivity::class.java)
+                        intent.putExtra("username", username)
+                        startActivity(intent)
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+
+            popupMenu.show()
+        }
+    }
+
+    private fun setButtons() {
         val btnRegistrarPersona = findViewById<Button>(R.id.btnRegistrarPersona)
-        btnRegistrarPersona.setOnClickListener{
-            val intentRP = Intent(this, RegistrarActivity::class.java)
-            startActivity(intentRP)
-        }
-
-        val btnListaDeudores = findViewById<Button>(R.id.btnListaDeudores)
-        btnListaDeudores.setOnClickListener{
-            val intentLD = Intent(this, ListaDeudoresActivity::class.java)
-            startActivity(intentLD)
-        }
-
-        val btnEmitirCarnet = findViewById<Button>(R.id.btnEmitirCarnet)
-        btnEmitirCarnet.setOnClickListener{
-            val intentEC = Intent(this, EmitirCarnetActivity::class.java)
-            startActivity(intentEC)
-        }
-
         val btnCobrar = findViewById<Button>(R.id.btnCobrar)
-        btnCobrar.setOnClickListener{
-            val intentC = Intent(this, CobrarActivity::class.java)
-            startActivity(intentC)
+        val btnEmitirCarnet = findViewById<Button>(R.id.btnEmitirCarnet)
+        val btnListaDeudores = findViewById<Button>(R.id.btnListaDeudores)
+        val btnLogout = findViewById<Button>(R.id.btnLogout)
+
+        btnRegistrarPersona.setOnClickListener {
+            val intent = Intent(this, RegistrarActivity::class.java)
+            startActivity(intent)
         }
 
-        val btnCerrarSesion = findViewById<Button>(R.id.btnLogout)
-        btnCerrarSesion.setOnClickListener{
+        btnCobrar.setOnClickListener {
+            val intent = Intent(this, CobrarActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnEmitirCarnet.setOnClickListener {
+            val intent = Intent(this, EmitirCarnetActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnListaDeudores.setOnClickListener {
+            val intent = Intent(this, ListaDeudoresActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnLogout.setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle("Cerrar sesión")
                 .setMessage("¿Desea cerrar sesión?")
-                .setPositiveButton("Sí"){_,_->finish()}
+                .setPositiveButton("Sí") { _, _ -> finish() }
                 .setNegativeButton("No", null)
                 .show()
-
-            /*val intentCS = Intent(this, MainActivity::class.java)
-            startActivity(intentCS)*/
         }
     }
 }

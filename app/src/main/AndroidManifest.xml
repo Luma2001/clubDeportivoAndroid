@@ -21,6 +21,10 @@
         </provider>
 
         <activity
+            android:name=".CambiarPasswordActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".CobrarActivity3"
             android:exported="false" />
         <activity

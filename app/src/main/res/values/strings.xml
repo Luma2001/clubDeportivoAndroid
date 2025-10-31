@@ -16,6 +16,7 @@
     <string name="textCobrar">COBRAR</string>
     <string name="textCerrarSesion">CERRAR SESIÓN</string>
     <string name="textBienvenido">Bienvenido</string>
+    <string name="opciones">Opciones</string>
 
     <!--Registrar-->
     <string name="TituloRegistrar">Registrar Persona</string>
