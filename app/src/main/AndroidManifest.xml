@@ -25,23 +25,12 @@
             android:exported="false" />
 
         <activity
-            android:name=".CobrarActivity3"
-            android:exported="false" />
-        <activity
             android:name=".ComprobanteActivity"
             android:exported="false" />
         <activity
             android:name=".CarnetEmitidoActivity"
             android:exported="false" />
-        <activity
-            android:name=".ConfirmacionPassActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RecuperarPassActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CuentaCreadaActivity"
-            android:exported="false" />
+
         <activity
             android:name=".CrearCuentaActivity"
             android:exported="false" />
