@@ -119,8 +119,8 @@ class Database(context: Context) :
         val adminValues = ContentValues().apply {
             put("dni", "00000000")
             put("email", "admin@club.com")
-            put("username", "admin")
-            put("pass", "admin123")
+            put("username", "Admin")
+            put("pass", "Admin123")
             put("rol", "admin")
         }
         db.insert("Usuario", null, adminValues)
